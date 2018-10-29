@@ -4,10 +4,11 @@ import 'package:crypto_currency/crypto/domain/crypto_currency_rest_repository.da
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
 import 'package:crypto_currency/crypto/web/coin_market_cap_service.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class CryptoCurrencyHome extends StatelessWidget {
   final CryptoCurrencyRepository _cryptoCurrencyRepository =
-      CryptoCurrencyRestRepository(CoinMarketCapCurrencyService());
+      CryptoCurrencyRestRepository(CoinMarketCapCurrencyService(http.Client()));
 
   @override
   Widget build(BuildContext context) => Scaffold(

@@ -4,6 +4,7 @@ import 'package:crypto_currency/crypto/web/coin_market_cap_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/testing.dart';
 
+import '../domain/crypto_currency_test_data.dart';
 import 'coin_market_cap_response.dart';
 
 void main() {
@@ -21,11 +22,7 @@ void main() {
     // Then:
     final cryptoCurrenciesList = cryptoCurrencies.toList();
     expect(cryptoCurrenciesList.length, 2);
-    expect(cryptoCurrenciesList[0], _toBeBitCoin());
-    expect(cryptoCurrenciesList[1], _toBeLiteCoin());
+    expect(cryptoCurrenciesList[0], bitCoin);
+    expect(cryptoCurrenciesList[1], liteCoin);
   });
 }
-
-_toBeBitCoin() => CryptoCurrency(id: 1, name: 'Bitcoin', symbol: 'BTC');
-
-_toBeLiteCoin() => CryptoCurrency(id: 2, name: 'Litecoin', symbol: 'LTC');

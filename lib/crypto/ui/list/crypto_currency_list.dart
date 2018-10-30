@@ -11,8 +11,10 @@ class CryptoCurrencyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-      itemCount: cryptoCurrencies.length,
-      itemBuilder: (BuildContext context, int index) => CryptoCurrencyListItem(
-            cryptoCurrency: cryptoCurrencies[index],
-          ));
+        itemCount: cryptoCurrencies.length,
+        itemBuilder: (BuildContext context, int index) =>
+            CryptoCurrencyListItem(
+              cryptoCurrency: cryptoCurrencies[index],
+            ),
+      );
 }

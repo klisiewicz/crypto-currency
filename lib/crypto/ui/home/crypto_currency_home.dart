@@ -1,17 +1,16 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_repository.dart';
-import 'package:crypto_currency/crypto/domain/crypto_currency_rest_repository.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
-import 'package:crypto_currency/crypto/web/coin_market_cap_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:kiwi/kiwi.dart' as kiwi;
 
 class CryptoCurrencyHome extends StatelessWidget {
   final CryptoCurrencyRepository _cryptoCurrencyRepository =
-      CryptoCurrencyRestRepository(CoinMarketCapCurrencyService(http.Client()));
+  new kiwi.Container()<CryptoCurrencyRepository>();
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(),
       );
@@ -22,21 +21,27 @@ class CryptoCurrencyHome extends StatelessWidget {
     );
   }
 
-  Widget _buildBody() => FutureBuilder<Iterable<CryptoCurrency>>(
-        future: _cryptoCurrencyRepository.findAll(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasData)
-              return CryptoCurrencyList(
-                cryptoCurrencies: snapshot.data.toList(),
-              );
-            else if (snapshot.hasError)
-              return SnackBar(
-                content: Text(snapshot.error.toString()),
-              );
-          } else {
-            return LinearProgressIndicator();
-          }
-        },
-      );
+  Widget _buildBody() {
+    return FutureBuilder<Iterable<CryptoCurrency>>(
+      future: _cryptoCurrencyRepository.findAll(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return _buildFromSnapshot(context, snapshot);
+      },
+    );
+  }
+
+  Widget _buildFromSnapshot(BuildContext context, AsyncSnapshot snapshot) {
+    if (snapshot.connectionState == ConnectionState.done) {
+      if (snapshot.hasData)
+        return CryptoCurrencyList(
+          cryptoCurrencies: snapshot.data.toList(),
+        );
+      else
+        return SnackBar(
+          content: Text(snapshot.error.toString()),
+        );
+    } else {
+      return LinearProgressIndicator();
+    }
+  }
 }

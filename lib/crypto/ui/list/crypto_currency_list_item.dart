@@ -13,15 +13,20 @@ class CryptoCurrencyListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
-        leading: new SvgPicture.asset(
-          'assets/icons/${cryptoCurrency.symbol.toLowerCase()}.svg',
-        ),
+        leading: _buildPicture(),
         title: Text(cryptoCurrency.symbol),
         subtitle: Text(cryptoCurrency.name),
         onTap: () {},
       ),
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: dividerColor(context)))),
+    );
+  }
+
+  Widget _buildPicture() {
+    return SvgPicture.asset(
+      'assets/icons/${cryptoCurrency.symbol.toLowerCase()}.svg',
+      placeholderBuilder: (BuildContext context) => CircleAvatar(),
     );
   }
 

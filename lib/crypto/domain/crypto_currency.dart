@@ -5,7 +5,7 @@ class CryptoCurrency {
   final String name;
   final String symbol;
 
-  CryptoCurrency(
+  const CryptoCurrency(
       {@required this.id, @required this.name, @required this.symbol})
       : assert(id != null),
         assert(name != null),

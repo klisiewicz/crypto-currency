@@ -1,10 +1,12 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
+import 'package:crypto_currency/crypto/ui/detail/crypto_currency_detail_screen.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
 
-class CryptoCurrencyHome extends StatelessWidget {
+class CryptoCurrencyListScreen extends StatelessWidget {
   final CryptoCurrencyRateRepository _cryptoCurrencyRepository =
   new kiwi.Container()<CryptoCurrencyRateRepository>();
 
@@ -35,6 +37,9 @@ class CryptoCurrencyHome extends StatelessWidget {
       if (snapshot.hasData)
         return CryptoCurrencyList(
           cryptoCurrencies: snapshot.data.toList(),
+          onValueSelected: (CryptoCurrencyRate cryptoCurrency) {
+            _navigateToCryptoCurrencyDetails(cryptoCurrency, context);
+          },
         );
       else
         return SnackBar(
@@ -43,5 +48,17 @@ class CryptoCurrencyHome extends StatelessWidget {
     } else {
       return LinearProgressIndicator();
     }
+  }
+
+  void _navigateToCryptoCurrencyDetails(CryptoCurrencyRate value,
+      BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              CryptoCurrencyDetailScreen(
+                cryptoCurrencyRate: value,
+              )),
+    );
   }
 }

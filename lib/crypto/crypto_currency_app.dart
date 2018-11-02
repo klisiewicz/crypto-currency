@@ -1,4 +1,4 @@
-import 'package:crypto_currency/crypto/ui/home/crypto_currency_home.dart';
+import 'package:crypto_currency/crypto/ui/list/crypto_currency_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class CryptoCurrencyApp extends StatelessWidget {
@@ -11,7 +11,7 @@ class CryptoCurrencyApp extends StatelessWidget {
         brightness: Brightness.dark,
         accentColor: Colors.redAccent,
       ),
-      home: CryptoCurrencyHome(),
+      home: CryptoCurrencyListScreen(),
     );
   }
 }

@@ -1,9 +1,9 @@
-import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list_item.dart';
 import 'package:flutter/material.dart';
 
 class CryptoCurrencyList extends StatelessWidget {
-  final List<CryptoCurrency> cryptoCurrencies;
+  final List<CryptoCurrencyRate> cryptoCurrencies;
 
   const CryptoCurrencyList({Key key, @required this.cryptoCurrencies})
       : assert(cryptoCurrencies != null),
@@ -14,7 +14,8 @@ class CryptoCurrencyList extends StatelessWidget {
         itemCount: cryptoCurrencies.length,
         itemBuilder: (BuildContext context, int index) =>
             CryptoCurrencyListItem(
-              cryptoCurrency: cryptoCurrencies[index],
+              cryptoCurrencyRate: cryptoCurrencies[index],
+              onTap: () {},
             ),
       );
 }

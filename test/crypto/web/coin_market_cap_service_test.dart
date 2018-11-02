@@ -1,4 +1,4 @@
-import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
 import 'package:crypto_currency/crypto/web/coin_market_cap_service.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,19 +10,19 @@ import 'coin_market_cap_response.dart';
 void main() {
   test("should parse valid response from coin market cap", () async {
     // Given:
-    final CryptoCurrencyService cryptoCurrencyService =
+    final CryptoCurrencyRateService cryptoCurrencyService =
         CoinMarketCapCurrencyService(MockClient((request) async {
-      return validResponse;
+          return cryptoCurrencies200Response;
     }));
 
     // When:
-    final Iterable<CryptoCurrency> cryptoCurrencies =
+    final Iterable<CryptoCurrencyRate> cryptoCurrencies =
         await cryptoCurrencyService.fetchAll();
 
     // Then:
     final cryptoCurrenciesList = cryptoCurrencies.toList();
     expect(cryptoCurrenciesList.length, 2);
-    expect(cryptoCurrenciesList[0], bitCoin);
-    expect(cryptoCurrenciesList[1], liteCoin);
+    expect(cryptoCurrenciesList[0], bitcoinRate);
+    expect(cryptoCurrenciesList[1], etherumRate);
   });
 }

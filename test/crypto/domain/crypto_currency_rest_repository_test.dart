@@ -1,18 +1,19 @@
-import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
-import 'package:crypto_currency/crypto/domain/crypto_currency_repository.dart';
-import 'package:crypto_currency/crypto/domain/crypto_currency_rest_repository.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate_rest_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'crypto_currency_test_data.dart';
 
-class _CryptoCurrencyServiceMock extends Mock implements CryptoCurrencyService {
+class _CryptoCurrencyServiceMock extends Mock
+    implements CryptoCurrencyRateService {
 }
 
 main() {
-  CryptoCurrencyRepository cryptoCurrencyRepository;
-  CryptoCurrencyService cryptoCurrencyService;
+  CryptoCurrencyRateRepository cryptoCurrencyRepository;
+  CryptoCurrencyRateService cryptoCurrencyService;
 
   setUp(() {
     cryptoCurrencyService = _CryptoCurrencyServiceMock();
@@ -23,17 +24,17 @@ main() {
   test("should return crypto currencies from the service", () async {
     // Given:
     when(cryptoCurrencyService.fetchAll()).thenAnswer((_) => new Future.value([
-      bitCoin, liteCoin
+      bitcoinRate, etherumRate
     ]));
 
     // When:
-    final Iterable<CryptoCurrency> cryptoCurrencies =
+    final Iterable<CryptoCurrencyRate> cryptoCurrencies =
         await cryptoCurrencyRepository.findAll();
 
     // Then:
     var cryptoCurrenciesList = cryptoCurrencies.toList();
     expect(cryptoCurrenciesList.length, 2);
-    expect(cryptoCurrenciesList[0], bitCoin);
-    expect(cryptoCurrenciesList[1], liteCoin);
+    expect(cryptoCurrenciesList[0], bitcoinRate);
+    expect(cryptoCurrenciesList[1], etherumRate);
   });
 }

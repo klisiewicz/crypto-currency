@@ -1,12 +1,12 @@
-import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
-import 'package:crypto_currency/crypto/domain/crypto_currency_repository.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
 
 class CryptoCurrencyHome extends StatelessWidget {
-  final CryptoCurrencyRepository _cryptoCurrencyRepository =
-  new kiwi.Container()<CryptoCurrencyRepository>();
+  final CryptoCurrencyRateRepository _cryptoCurrencyRepository =
+  new kiwi.Container()<CryptoCurrencyRateRepository>();
 
   @override
   Widget build(BuildContext context) =>
@@ -22,7 +22,7 @@ class CryptoCurrencyHome extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return FutureBuilder<Iterable<CryptoCurrency>>(
+    return FutureBuilder<Iterable<CryptoCurrencyRate>>(
       future: _cryptoCurrencyRepository.findAll(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _buildFromSnapshot(context, snapshot);

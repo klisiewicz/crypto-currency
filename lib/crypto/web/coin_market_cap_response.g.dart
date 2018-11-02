@@ -8,11 +8,14 @@ part of 'coin_market_cap_response.dart';
 
 CoinMarketCapResponse _$CoinMarketCapResponseFromJson(
     Map<String, dynamic> json) {
-  return CoinMarketCapResponse((json['data'] as List)
-      ?.map((e) => e == null
-          ? null
-          : CoinMarketCapCurrency.fromJson(e as Map<String, dynamic>))
-      ?.toList());
+  return CoinMarketCapResponse((json['data'] as Map<String, dynamic>)?.map(
+          (k, e) =>
+          MapEntry(
+              k,
+              e == null
+                  ? null
+                  : CoinMarketCapCurrency.fromJson(
+                  e as Map<String, dynamic>))));
 }
 
 Map<String, dynamic> _$CoinMarketCapResponseToJson(
@@ -22,7 +25,15 @@ Map<String, dynamic> _$CoinMarketCapResponseToJson(
 CoinMarketCapCurrency _$CoinMarketCapCurrencyFromJson(
     Map<String, dynamic> json) {
   return CoinMarketCapCurrency(
-      json['id'] as int, json['name'] as String, json['symbol'] as String);
+      json['id'] as int,
+      json['name'] as String,
+      json['symbol'] as String,
+      (json['quotes'] as Map<String, dynamic>)?.map((k, e) =>
+          MapEntry(
+              k,
+              e == null
+                  ? null
+                  : CoinMarketQuote.fromJson(e as Map<String, dynamic>))));
 }
 
 Map<String, dynamic> _$CoinMarketCapCurrencyToJson(
@@ -30,5 +41,17 @@ Map<String, dynamic> _$CoinMarketCapCurrencyToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'symbol': instance.symbol
+      'symbol': instance.symbol,
+      'quotes': instance.quotes
+    };
+
+CoinMarketQuote _$CoinMarketQuoteFromJson(Map<String, dynamic> json) {
+  return CoinMarketQuote((json['price'] as num)?.toDouble(),
+      (json['percent_change_1h'] as num)?.toDouble());
+}
+
+Map<String, dynamic> _$CoinMarketQuoteToJson(CoinMarketQuote instance) =>
+    <String, dynamic>{
+      'price': instance.price,
+      'percent_change_1h': instance.percentageChangeLastHour
     };

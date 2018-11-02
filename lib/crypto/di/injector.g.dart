@@ -11,10 +11,12 @@ class _$Injector extends Injector {
     final Container container = Container();
     container.registerFactory((c) => Client());
     container
-        .registerSingleton<CryptoCurrencyService, CoinMarketCapCurrencyService>(
+        .registerFactory<CryptoCurrencyRateService,
+        CoinMarketCapCurrencyService>(
             (c) => CoinMarketCapCurrencyService(c<Client>()));
-    container.registerSingleton<CryptoCurrencyRepository,
+    container.registerSingleton<CryptoCurrencyRateRepository,
             CryptoCurrencyRestRepository>(
-        (c) => CryptoCurrencyRestRepository(c<CryptoCurrencyService>()));
+            (c) =>
+            CryptoCurrencyRestRepository(c<CryptoCurrencyRateService>()));
   }
 }

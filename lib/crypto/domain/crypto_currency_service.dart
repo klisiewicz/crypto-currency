@@ -1,5 +1,5 @@
-import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 
-abstract class CryptoCurrencyService {
-  Future<Iterable<CryptoCurrency>> fetchAll();
+abstract class CryptoCurrencyRateService {
+  Future<Iterable<CryptoCurrencyRate>> fetchAll();
 }

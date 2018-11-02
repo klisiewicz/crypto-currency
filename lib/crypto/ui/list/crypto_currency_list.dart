@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 class CryptoCurrencyList extends StatelessWidget {
   final List<CryptoCurrencyRate> cryptoCurrencies;
+  final ValueSetter<CryptoCurrencyRate> onValueSelected;
 
-  const CryptoCurrencyList({Key key, @required this.cryptoCurrencies})
+  const CryptoCurrencyList(
+      {Key key, @required this.cryptoCurrencies, this.onValueSelected})
       : assert(cryptoCurrencies != null),
         super(key: key);
 
@@ -15,7 +17,10 @@ class CryptoCurrencyList extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) =>
             CryptoCurrencyListItem(
               cryptoCurrencyRate: cryptoCurrencies[index],
-              onTap: () {},
+              onTap: () {
+                if (onValueSelected != null)
+                  onValueSelected(cryptoCurrencies[index]);
+              },
             ),
       );
 }

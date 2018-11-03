@@ -10,8 +10,7 @@ class _$Injector extends Injector {
   void configure() {
     final Container container = Container();
     container.registerFactory((c) => Client());
-    container
-        .registerFactory<CryptoCurrencyRateService,
+    container.registerFactory<CryptoCurrencyRateService,
         CoinMarketCapCurrencyService>(
             (c) => CoinMarketCapCurrencyService(c<Client>()));
     container.registerSingleton<CryptoCurrencyRateRepository,

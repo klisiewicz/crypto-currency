@@ -78,7 +78,7 @@ class CryptoCurrencyListItem extends StatelessWidget {
       );
 
   Widget _buildTrendIcon(BuildContext context) {
-    switch (cryptoCurrencyRate.trend) {
+    switch (cryptoCurrencyRate.trendValue.trend) {
       case Trend.rising:
         return Icon(
           Icons.keyboard_arrow_up,

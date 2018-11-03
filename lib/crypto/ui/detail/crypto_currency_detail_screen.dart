@@ -9,9 +9,10 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
         appBar: _buildAppBar(),
-        body: _buildBody(),
+        body: _buildBody(context),
       );
 
   Widget _buildAppBar() {
@@ -20,5 +21,29 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBody() => Container();
+  Widget _buildBody(BuildContext context) =>
+      SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              _buildLabeledTextField(
+                  'Symbol', cryptoCurrencyRate.cryptoCurrency.symbol),
+              _buildLabeledTextField(
+                  'Name', cryptoCurrencyRate.cryptoCurrency.name),
+            ],
+          ),
+        ),
+      );
+
+  Widget _buildLabeledTextField(String label, String text) {
+    return TextField(
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        labelText: 'Name',
+        enabled: false,
+      ),
+      controller: TextEditingController(text: text),
+    );
+  }
 }

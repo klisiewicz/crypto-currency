@@ -1,4 +1,5 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
+import 'package:crypto_currency/crypto/ui/crypto_currency_trend_icon_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -73,29 +74,9 @@ class CryptoCurrencyListItem extends StatelessWidget {
         children: <Widget>[
           Text('${cryptoCurrencyRate.price.toStringAsFixed(4)} USD'),
           _buildHorizontalPadding(8.0),
-          _buildTrendIcon(context),
+          buildTrendIcon(context, cryptoCurrencyRate.trendHistory.hour.trend),
         ],
       );
-
-  Widget _buildTrendIcon(BuildContext context) {
-    switch (cryptoCurrencyRate.trendValue.trend) {
-      case Trend.rising:
-        return Icon(
-          Icons.keyboard_arrow_up,
-          color: Color(0xFF7FF2CC),
-        );
-      case Trend.falling:
-        return Icon(
-          Icons.keyboard_arrow_down,
-          color: Color(0xFFD36C68),
-        );
-      default:
-        return Icon(
-          Icons.remove,
-          color: dividerColor(context),
-        );
-    }
-  }
 
   TextStyle captionStyle(BuildContext context) =>
       Theme

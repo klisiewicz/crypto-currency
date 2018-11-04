@@ -4,6 +4,7 @@ import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_supply.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_trend.dart';
 import 'package:crypto_currency/crypto/web/coin_market_cap_response.dart';
 import 'package:http/http.dart';
 
@@ -40,9 +41,19 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
               circulating: it.circulatingSupply,
               max: it.maxSupply,
             ),
-            trendValue: TrendValue(
-                value: quote.percentageChangeLastHour.abs(),
-                trend: _getTrend(quote.percentageChangeLastHour)),
+            trendHistory: TrendHistory(
+                hour: TrendValue(
+                  value: quote.percentageChangeLastHour.abs(),
+                  trend: _getTrend(quote.percentageChangeLastHour),
+                ),
+                day: TrendValue(
+                  value: quote.percentageChangeLastDay.abs(),
+                  trend: _getTrend(quote.percentageChangeLastDay),
+                ),
+                week: TrendValue(
+                  value: quote.percentageChangeLastWeek.abs(),
+                  trend: _getTrend(quote.percentageChangeLastWeek),
+                )),
           );
         },
       );

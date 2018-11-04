@@ -1,5 +1,6 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_supply.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_trend.dart';
 import 'package:meta/meta.dart';
 
 class CryptoCurrencyRate {
@@ -7,18 +8,18 @@ class CryptoCurrencyRate {
   final Supply supply;
   final double price;
   final double marketCap;
-  final TrendValue trendValue;
+  final TrendHistory trendHistory;
 
   const CryptoCurrencyRate(
       {@required this.cryptoCurrency,
         @required this.supply,
       @required this.price,
         @required this.marketCap,
-        @required this.trendValue})
+        @required this.trendHistory})
       : assert(cryptoCurrency != null),
         assert(price != null),
         assert(supply != null),
-        assert(trendValue != null);
+        assert(trendHistory != null);
 
   @override
   bool operator ==(Object other) =>
@@ -29,7 +30,7 @@ class CryptoCurrencyRate {
           price == other.price &&
           marketCap == other.marketCap &&
           supply == other.supply &&
-          trendValue == other.trendValue;
+          trendHistory == other.trendHistory;
 
   @override
   int get hashCode =>
@@ -37,14 +38,5 @@ class CryptoCurrencyRate {
       price.hashCode ^
       marketCap.hashCode ^
       supply.hashCode ^
-      trendValue.hashCode;
+      trendHistory.hashCode;
 }
-
-class TrendValue {
-  final double value;
-  final Trend trend;
-
-  const TrendValue({this.value, this.trend});
-}
-
-enum Trend { rising, falling, standing }

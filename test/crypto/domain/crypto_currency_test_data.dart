@@ -2,10 +2,11 @@ import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_supply.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_trend.dart';
+import 'package:crypto_currency/crypto/domain/money.dart';
 
-const bitcoinRate = CryptoCurrencyRate(
+final bitcoinRate = CryptoCurrencyRate(
   cryptoCurrency: CryptoCurrency(id: 1, name: 'Bitcoin', symbol: 'BTC'),
-  price: 9024.09,
+  price: Money(amount: 9024.09, currency: 'USD'),
   marketCap: 153483184623.0,
   supply: Supply(circulating: 17008162.0, max: 21000000.0),
   trendHistory: TrendHistory(
@@ -15,9 +16,9 @@ const bitcoinRate = CryptoCurrencyRate(
   ),
 );
 
-const etherumRate = CryptoCurrencyRate(
+final etherumRate = CryptoCurrencyRate(
   cryptoCurrency: CryptoCurrency(id: 1027, name: 'Ethereum', symbol: 'ETH'),
-  price: 642.399,
+  price: Money(amount: 642.399, currency: 'USD'),
   marketCap: 63695073558.0,
   supply: Supply(
     circulating: 99151888.0,

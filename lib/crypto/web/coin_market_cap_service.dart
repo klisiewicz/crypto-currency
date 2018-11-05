@@ -5,6 +5,7 @@ import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_supply.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_trend.dart';
+import 'package:crypto_currency/crypto/domain/money.dart';
 import 'package:crypto_currency/crypto/web/coin_market_cap_response.dart';
 import 'package:http/http.dart';
 
@@ -35,7 +36,7 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
           var quote = it.quotes.values.first;
           return CryptoCurrencyRate(
             cryptoCurrency: currency,
-            price: quote.price,
+            price: Money(amount: quote.price, currency: it.quotes.keys.first),
             marketCap: quote.marketCap,
             supply: Supply(
               circulating: it.circulatingSupply,

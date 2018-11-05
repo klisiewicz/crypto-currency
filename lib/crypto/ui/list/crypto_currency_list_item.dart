@@ -1,13 +1,15 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
-import 'package:crypto_currency/crypto/ui/crypto_currency_trend_icon_builder.dart';
+import 'package:crypto_currency/crypto/ui/money_format.dart';
+import 'package:crypto_currency/crypto/ui/trend_icon_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CryptoCurrencyListItem extends StatelessWidget {
   final CryptoCurrencyRate cryptoCurrencyRate;
   final GestureTapCallback onTap;
+  final MoneyFormat moneyFormat = MoneyFormat();
 
-  const CryptoCurrencyListItem(
+  CryptoCurrencyListItem(
       {Key key, @required this.cryptoCurrencyRate, this.onTap})
       : assert(cryptoCurrencyRate != null),
         super(key: key);
@@ -72,7 +74,7 @@ class CryptoCurrencyListItem extends StatelessWidget {
   Widget _buildRate(BuildContext context) =>
       Row(
         children: <Widget>[
-          Text('${cryptoCurrencyRate.price.toStringAsFixed(4)} USD'),
+          Text(moneyFormat.format(cryptoCurrencyRate.price)),
           _buildHorizontalPadding(8.0),
           buildTrendIcon(context, cryptoCurrencyRate.trendHistory.hour.trend),
         ],

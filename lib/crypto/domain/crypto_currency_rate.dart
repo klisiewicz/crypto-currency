@@ -1,12 +1,13 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_supply.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_trend.dart';
+import 'package:crypto_currency/crypto/domain/money.dart';
 import 'package:meta/meta.dart';
 
 class CryptoCurrencyRate {
   final CryptoCurrency cryptoCurrency;
   final Supply supply;
-  final double price;
+  final Money price;
   final double marketCap;
   final TrendHistory trendHistory;
 

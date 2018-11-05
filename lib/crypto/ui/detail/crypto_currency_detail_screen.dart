@@ -1,12 +1,16 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_trend.dart';
-import 'package:crypto_currency/crypto/ui/crypto_currency_trend_icon_builder.dart';
+import 'package:crypto_currency/crypto/ui/money_format.dart';
+import 'package:crypto_currency/crypto/ui/trend_icon_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CryptoCurrencyDetailScreen extends StatelessWidget {
   final CryptoCurrencyRate cryptoCurrencyRate;
+  final NumberFormat numberFormat = NumberFormat.decimalPattern();
+  final MoneyFormat moneyFormat = MoneyFormat();
 
-  const CryptoCurrencyDetailScreen({Key key, @required this.cryptoCurrencyRate})
+  CryptoCurrencyDetailScreen({Key key, @required this.cryptoCurrencyRate})
       : assert(cryptoCurrencyRate != null),
         super(key: key);
 
@@ -32,19 +36,15 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               _buildLabeledTextField(
-                  'Price',
-                  '${cryptoCurrencyRate.price.toStringAsFixed(4)} USD'),
-              _buildLabeledTextField(
-                  'Market Cap', cryptoCurrencyRate.marketCap.toString()),
+                  'Price', moneyFormat.format(cryptoCurrencyRate.price)),
+              _buildLabeledTextField('Market Cap',
+                  numberFormat.format(cryptoCurrencyRate.marketCap)),
               Divider(),
               _buildLabeledTextField('Circulating Supply',
-                  '${cryptoCurrencyRate.supply.circulating
-                      .toString()} ${cryptoCurrencyRate.cryptoCurrency
+                  '${numberFormat.format(cryptoCurrencyRate.supply
+                      .circulating)} ${cryptoCurrencyRate.cryptoCurrency
                       .symbol}'),
-              _buildLabeledTextField('Max Supply',
-                  '${cryptoCurrencyRate.supply.max
-                      .toString()} ${cryptoCurrencyRate.cryptoCurrency
-                      .symbol}'),
+              _buildMaxSupply(),
               Divider(),
               _buildTrendLabeledTextField(
                   context, 'Change (1h)', cryptoCurrencyRate.trendHistory.hour),
@@ -56,6 +56,16 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
           ),
         ),
       );
+
+  Widget _buildMaxSupply() {
+    if (cryptoCurrencyRate.supply.max != null)
+      return _buildLabeledTextField('Max Supply',
+          '${numberFormat.format(
+              cryptoCurrencyRate.supply.max)} ${cryptoCurrencyRate
+              .cryptoCurrency.symbol}');
+    else
+      return Container();
+  }
 
   Widget _buildLabeledTextField(String label, String text) =>
       TextField(

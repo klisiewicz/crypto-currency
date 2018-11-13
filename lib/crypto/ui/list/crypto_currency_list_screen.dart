@@ -13,15 +13,14 @@ class CryptoCurrencyListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        appBar: _buildAppBar(),
+        appBar: _buildAppBar(context),
         body: _buildBody(),
       );
 
-  Widget _buildAppBar() {
-    return new AppBar(
-      title: new Text('Cryptocurrencies'),
-    );
-  }
+  Widget _buildAppBar(BuildContext context) =>
+      AppBar(
+        title: Text('Cryptocurrencies'),
+      );
 
   Widget _buildBody() {
     return FutureBuilder<Iterable<CryptoCurrencyRate>>(
@@ -54,7 +53,7 @@ class CryptoCurrencyListScreen extends StatelessWidget {
       BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      CupertinoPageRoute(
           builder: (context) =>
               CryptoCurrencyDetailScreen(
                 cryptoCurrencyRate: value,

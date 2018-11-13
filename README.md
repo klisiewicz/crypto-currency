@@ -7,7 +7,6 @@ This application allows to view crypto currency rates from [Coin Market Cap](htt
 * [Kiwi](https://github.com/letsar/kiwi) - A simple compile-time dependency injection library for Dart and Flutter.
 * [Json Serializable](https://github.com/dart-lang/json_serializable) - Generates utilities to aid in serializing to/from JSON.
 * [Flutter Svg](https://github.com/dnfield/flutter_svg) - SVG parsing, rendering, and widget library for Flutter.
-* [Search Bar](https://github.com/ArcticZeroo/flutter-search-bar) - A simple and mostly automatic material search bar for flutter (dart).
 
 ## Authors
 

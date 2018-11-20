@@ -2,6 +2,7 @@ import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
 import 'package:crypto_currency/crypto/ui/detail/crypto_currency_detail_screen.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
+import 'package:crypto_currency/crypto/ui/search/search_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
@@ -26,15 +27,23 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
       );
 
   Widget _buildAppBar(BuildContext context) =>
-      AppBar(
-        title: Text('Cryptocurrencies'),
+      SearchAppBar(
+        title: 'Cryptocurrencies',
+        onChange: _findByQuery,
       );
 
+  Future<Null> _findByQuery(String query) async {
+    final updatedCryptoCurrencyRates =
+    await widget._cryptoCurrencyRepository.findByQuery(query);
+    setState(() {
+      cryptoCurrencyRates = updatedCryptoCurrencyRates.toList();
+    });
+  }
+
   Widget _buildBody(BuildContext context) {
-    if (cryptoCurrencyRates == null)
-      return _buildCryptoCurrencyListLoader();
-    else
-      return _buildCryptoCurrencyList(context);
+    return (cryptoCurrencyRates == null)
+        ? _buildCryptoCurrencyListLoader()
+        : _buildCryptoCurrencyList(context);
   }
 
   Widget _buildCryptoCurrencyListLoader() {
@@ -71,7 +80,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
         ),
       );
 
-  Future<void> _refreshCurrencyRates() async {
+  Future<Null> _refreshCurrencyRates() async {
     final updatedCryptoCurrencyRates =
     await widget._cryptoCurrencyRepository.findAll();
     setState(() {
@@ -84,10 +93,11 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
     Navigator.push(
       context,
       CupertinoPageRoute(
-          builder: (context) =>
-              CryptoCurrencyDetailScreen(
-                cryptoCurrencyRate: value,
-              )),
+        builder: (context) =>
+            CryptoCurrencyDetailScreen(
+              cryptoCurrencyRate: value,
+            ),
+      ),
     );
   }
 }

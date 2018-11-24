@@ -18,6 +18,7 @@ class CryptoCurrencyListScreen extends StatefulWidget {
 
 class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
   List<CryptoCurrencyRate> cryptoCurrencyRates;
+  String query;
 
   @override
   Widget build(BuildContext context) =>
@@ -29,15 +30,12 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
   Widget _buildAppBar(BuildContext context) =>
       SearchAppBar(
         title: 'Cryptocurrencies',
-        onChange: _findByQuery,
+        onChange: _storeQueryAndRefresh,
       );
 
-  Future<Null> _findByQuery(String query) async {
-    final updatedCryptoCurrencyRates =
-    await widget._cryptoCurrencyRepository.findByQuery(query);
-    setState(() {
-      cryptoCurrencyRates = updatedCryptoCurrencyRates.toList();
-    });
+  Future<Null> _storeQueryAndRefresh(String query) async {
+    this.query = query;
+    return _refreshCurrencyRates();
   }
 
   Widget _buildBody(BuildContext context) {
@@ -82,7 +80,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
 
   Future<Null> _refreshCurrencyRates() async {
     final updatedCryptoCurrencyRates =
-    await widget._cryptoCurrencyRepository.findAll();
+    await widget._cryptoCurrencyRepository.findByQuery(query);
     setState(() {
       cryptoCurrencyRates = updatedCryptoCurrencyRates.toList();
     });

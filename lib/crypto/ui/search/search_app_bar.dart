@@ -42,7 +42,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
   void _notifyTextChangeWithDebounce(String text) {
     if (_debounce?.isActive ?? false) _debounce.cancel();
     _debounce = Timer(
-      Duration(milliseconds: 500),
+      Duration(milliseconds: 200),
       () {
         widget.onChange(text);
       },

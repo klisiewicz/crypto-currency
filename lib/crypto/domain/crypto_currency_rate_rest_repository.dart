@@ -18,10 +18,9 @@ class CryptoCurrencyRestRepository implements CryptoCurrencyRateRepository {
   @override
   Future<Iterable<CryptoCurrencyRate>> findAll() async {
     try {
-      if (cache.isValid())
-        return _fetchFromLocalStorage();
-      else
-        return await _fetchFromService();
+      return (cache.isValid())
+          ? _fetchFromLocalStorage()
+          : await _fetchFromService();
     } catch (e) {
       return _fetchFromLocalStorage();
     }
@@ -36,4 +35,25 @@ class CryptoCurrencyRestRepository implements CryptoCurrencyRateRepository {
   Future<Iterable<CryptoCurrencyRate>> _fetchFromLocalStorage() async {
     return cryptoCurrencyRateDao.getAll();
   }
+
+  @override
+  Future<Iterable<CryptoCurrencyRate>> findByQuery(String query) async {
+    final cryptoCurrencyRates = await cryptoCurrencyRateService.fetchAll();
+
+    return (isNotNullOrEmpty(query))
+        ? cryptoCurrencyRates.where(
+          (CryptoCurrencyRate rate) =>
+      _nameContainsQuery(rate, query) ||
+          _symbolContainsQuery(rate, query),
+    )
+        : cryptoCurrencyRates;
+  }
+
+  bool isNotNullOrEmpty(String query) => query != null && query.isNotEmpty;
+
+  bool _nameContainsQuery(CryptoCurrencyRate rate, String query) =>
+      rate.cryptoCurrency.name.toLowerCase().contains(query.toLowerCase());
+
+  bool _symbolContainsQuery(CryptoCurrencyRate rate, String query) =>
+      rate.cryptoCurrency.symbol.toLowerCase().contains(query.toLowerCase());
 }

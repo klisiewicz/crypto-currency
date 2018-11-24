@@ -13,7 +13,9 @@ dependencies:
   kiwi: ^0.1.0
   json_annotation: ^1.0.0
   flutter_svg: ^0.6.2
-
+  flutter_search_bar:
+    git: git://github.com/klisiewicz/flutter-search-bar.git
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

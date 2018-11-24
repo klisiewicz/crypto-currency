@@ -28,15 +28,16 @@ class _SearchAppBarState extends State<SearchAppBar> {
       inBar: true,
       setState: setState,
       onChanged: _notifyTextChangeWithDebounce,
-      onClosed: () {
-        widget.onChange(null);
-      },
+      onClosed: _notifyTextEmpty,
+      onCleared: _notifyTextEmpty,
       closeOnSubmit: false,
       clearOnSubmit: false,
       onSubmitted: (value) {},
       buildDefaultAppBar: _buildAppBar,
     );
   }
+
+  void _notifyTextEmpty() => widget.onChange("");
 
   void _notifyTextChangeWithDebounce(String text) {
     if (_debounce?.isActive ?? false) _debounce.cancel();

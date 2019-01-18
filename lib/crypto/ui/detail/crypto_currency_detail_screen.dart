@@ -22,8 +22,8 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
       );
 
   Widget _buildAppBar() =>
-      new AppBar(
-        title: new Text(cryptoCurrencyRate.cryptoCurrency.name),
+      AppBar(
+        title: Text(cryptoCurrencyRate.cryptoCurrency.name),
       );
 
   Widget _buildBody(BuildContext context) =>
@@ -34,28 +34,32 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              _buildLabeledTextField(
-                  'Price', moneyFormat.format(cryptoCurrencyRate.price)),
-              _buildLabeledTextField('Market Cap',
-                  numberFormat.format(cryptoCurrencyRate.marketCap)),
-              Divider(),
-              _buildLabeledTextField('Circulating Supply',
-                  '${numberFormat.format(cryptoCurrencyRate.supply
-                      .circulating)} ${cryptoCurrencyRate.cryptoCurrency
-                      .symbol}'),
-              _buildMaxSupply(),
-              Divider(),
-              _buildTrendLabeledTextField(
-                  context, 'Change (1h)', cryptoCurrencyRate.trendHistory.hour),
-              _buildTrendLabeledTextField(
-                  context, 'Change (1d)', cryptoCurrencyRate.trendHistory.day),
-              _buildTrendLabeledTextField(
-                  context, 'Change (1w)', cryptoCurrencyRate.trendHistory.week),
-            ],
+            children: _buildContent(context),
           ),
         ),
       );
+
+  List<Widget> _buildContent(BuildContext context) {
+    return <Widget>[
+      _buildLabeledTextField(
+          'Price', moneyFormat.format(cryptoCurrencyRate.price)),
+      _buildLabeledTextField('Market Cap',
+          numberFormat.format(cryptoCurrencyRate.marketCap)),
+      Divider(),
+      _buildLabeledTextField('Circulating Supply',
+          '${numberFormat.format(
+              cryptoCurrencyRate.supply.circulating)} ${cryptoCurrencyRate
+              .cryptoCurrency.symbol}'),
+      _buildMaxSupply(),
+      Divider(),
+      _buildTrendLabeledTextField(
+          context, 'Change (1h)', cryptoCurrencyRate.trendHistory.hour),
+      _buildTrendLabeledTextField(
+          context, 'Change (1d)', cryptoCurrencyRate.trendHistory.day),
+      _buildTrendLabeledTextField(
+          context, 'Change (1w)', cryptoCurrencyRate.trendHistory.week),
+    ];
+  }
 
   Widget _buildMaxSupply() {
     if (cryptoCurrencyRate.supply.max != null)
@@ -81,10 +85,11 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
       TrendValue trendValue) =>
       TextField(
         decoration: InputDecoration(
-            border: InputBorder.none,
-            labelText: label,
-            enabled: false,
-            suffixIcon: buildTrendIcon(context, trendValue.trend)),
+          border: InputBorder.none,
+          labelText: label,
+          enabled: false,
+          suffixIcon: buildTrendIcon(context, trendValue.trend),
+        ),
         controller: TextEditingController(
             text: '${trendValue.value.toStringAsFixed(2)} %'),
       );

@@ -27,5 +27,5 @@ abstract class Injector {
 }
 
 void inject() {
-  new _$Injector().configure();
+  _$Injector().configure();
 }

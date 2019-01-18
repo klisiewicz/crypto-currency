@@ -59,7 +59,7 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
         },
       );
 
-  _getTrend(double percentageChangeLastHour) {
+  Trend _getTrend(double percentageChangeLastHour) {
     if (percentageChangeLastHour > 0)
       return Trend.rising;
     else if (percentageChangeLastHour == 0)

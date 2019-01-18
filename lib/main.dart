@@ -5,5 +5,5 @@ import 'package:flutter/material.dart';
 void main() {
 //  debugPaintSizeEnabled = true;
   inject();
-  runApp(new CryptoCurrencyApp());
+  runApp(CryptoCurrencyApp());
 }

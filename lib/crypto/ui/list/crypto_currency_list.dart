@@ -18,8 +18,7 @@ class CryptoCurrencyList extends StatelessWidget {
             CryptoCurrencyListItem(
               cryptoCurrencyRate: cryptoCurrencies[index],
               onTap: () {
-                if (onValueSelected != null)
-                  onValueSelected(cryptoCurrencies[index]);
+                onValueSelected?.call(cryptoCurrencies[index]);
               },
             ),
       );

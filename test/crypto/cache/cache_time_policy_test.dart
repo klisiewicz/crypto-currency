@@ -1,7 +1,7 @@
 import 'package:crypto_currency/crypto/cache/cache_policy.dart';
 import 'package:crypto_currency/crypto/cache/cache_time_policy.dart';
 import 'package:crypto_currency/crypto/time/date_time_provider.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 class _DateTimeProviderMock implements DateTimeProvider {
   List<DateTime> dates = [];

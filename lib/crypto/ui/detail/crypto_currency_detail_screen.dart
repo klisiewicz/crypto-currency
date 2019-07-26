@@ -10,7 +10,10 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
   final NumberFormat numberFormat = NumberFormat.decimalPattern();
   final MoneyFormat moneyFormat = MoneyFormat();
 
-  CryptoCurrencyDetailScreen({Key key, @required this.cryptoCurrencyRate})
+  CryptoCurrencyDetailScreen({
+    Key key,
+    @required this.cryptoCurrencyRate,
+  })
       : assert(cryptoCurrencyRate != null),
         super(key: key);
 
@@ -43,8 +46,8 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
     return <Widget>[
       _buildLabeledTextField(
           'Price', moneyFormat.format(cryptoCurrencyRate.price)),
-      _buildLabeledTextField('Market Cap',
-          numberFormat.format(cryptoCurrencyRate.marketCap)),
+      _buildLabeledTextField(
+          'Market Cap', numberFormat.format(cryptoCurrencyRate.marketCap)),
       Divider(),
       _buildLabeledTextField('Circulating Supply',
           '${numberFormat.format(
@@ -81,8 +84,9 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
         controller: TextEditingController(text: text),
       );
 
-  Widget _buildTrendLabeledTextField(BuildContext context, String label,
-      TrendValue trendValue) =>
+  Widget _buildTrendLabeledTextField(BuildContext context,
+      String label,
+      TrendValue trendValue,) =>
       TextField(
         decoration: InputDecoration(
           border: InputBorder.none,

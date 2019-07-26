@@ -9,8 +9,11 @@ class CryptoCurrencyListItem extends StatelessWidget {
   final GestureTapCallback onTap;
   final MoneyFormat moneyFormat = MoneyFormat();
 
-  CryptoCurrencyListItem(
-      {Key key, @required this.cryptoCurrencyRate, this.onTap})
+  CryptoCurrencyListItem({
+    Key key,
+    @required this.cryptoCurrencyRate,
+    this.onTap,
+  })
       : assert(cryptoCurrencyRate != null),
         super(key: key);
 
@@ -55,21 +58,21 @@ class CryptoCurrencyListItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(cryptoCurrencyRate.cryptoCurrency.symbol,
-                style: subheadStyle(context)),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 2.0),
+            Text(
+              cryptoCurrencyRate.cryptoCurrency.symbol,
+              style: subheadStyle(context),
             ),
-            Text(cryptoCurrencyRate.cryptoCurrency.name,
-                style: captionStyle(context))
+            Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+            Text(
+              cryptoCurrencyRate.cryptoCurrency.name,
+              style: captionStyle(context),
+            )
           ],
         ),
       );
 
   Widget _buildHorizontalPadding(double value) =>
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: value),
-      );
+      Padding(padding: EdgeInsets.symmetric(horizontal: value));
 
   Widget _buildRate(BuildContext context) =>
       Row(

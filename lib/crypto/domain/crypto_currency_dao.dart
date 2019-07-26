@@ -5,5 +5,5 @@ abstract class CryptoCurrencyRateDao {
 
   Future<Iterable<CryptoCurrencyRate>> getByName(String name);
 
-  Future<Null> saveAll(Iterable<CryptoCurrencyRate> currencies);
+  Future<void> saveAll(Iterable<CryptoCurrencyRate> currencies);
 }

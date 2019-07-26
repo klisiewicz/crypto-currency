@@ -24,8 +24,8 @@ abstract class Injector {
   @Register.singleton(CryptoCurrencyRateRepository,
       from: CryptoCurrencyRestRepository)
   void configure();
-}
 
-void inject() {
-  _$Injector().configure();
+  static void inject() {
+    _$Injector().configure();
+  }
 }

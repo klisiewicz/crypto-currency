@@ -1,30 +1,24 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class CryptoCurrency {
+class CryptoCurrency extends Equatable {
   final int id;
   final String name;
   final String symbol;
 
-  const CryptoCurrency(
-      {@required this.id, @required this.name, @required this.symbol})
+  CryptoCurrency({
+    @required this.id,
+    @required this.name,
+    @required this.symbol,
+  })
       : assert(id != null),
         assert(name != null),
-        assert(symbol != null);
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-          other is CryptoCurrency &&
-              runtimeType == other.runtimeType &&
-              id == other.id &&
-              name == other.name &&
-              symbol == other.symbol;
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      name.hashCode ^
-      symbol.hashCode;
+        assert(symbol != null),
+        super([
+        id,
+        name,
+        symbol,
+      ]);
 
   @override
   String toString() => '$name ($symbol)';

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class CryptoCurrencyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Cryptocurrencies',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.grey,
         brightness: Brightness.dark,
         accentColor: Colors.redAccent,

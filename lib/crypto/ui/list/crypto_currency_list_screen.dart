@@ -2,7 +2,6 @@ import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
 import 'package:crypto_currency/crypto/ui/detail/crypto_currency_detail_screen.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
-import 'package:crypto_currency/crypto/ui/search/search_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
@@ -18,38 +17,26 @@ class CryptoCurrencyListScreen extends StatefulWidget {
 
 class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
   List<CryptoCurrencyRate> cryptoCurrencyRates;
-  String query;
 
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        appBar: _buildAppBar(context),
-        body: _buildBody(context),
+        appBar: _buildAppBar(),
+        body: _buildBody(),
       );
 
-  Widget _buildAppBar(BuildContext context) =>
-      SearchAppBar(
-        title: 'Cryptocurrencies',
-        onChange: _storeQueryAndRefresh,
-      );
+  Widget _buildAppBar() => AppBar(title: Text('Cryptocurrencies'));
 
-  Future<Null> _storeQueryAndRefresh(String query) async {
-    this.query = query;
-    return _refreshCurrencyRates();
-  }
-
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody() {
     return (cryptoCurrencyRates == null)
         ? _buildCryptoCurrencyListLoader()
-        : _buildCryptoCurrencyList(context);
+        : _buildCryptoCurrencyList();
   }
 
   Widget _buildCryptoCurrencyListLoader() {
     return FutureBuilder<Iterable<CryptoCurrencyRate>>(
       future: widget._cryptoCurrencyRepository.findAll(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return _buildFromSnapshot(context, snapshot);
-      },
+      builder: _buildFromSnapshot,
     );
   }
 
@@ -57,7 +44,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
     if (snapshot.connectionState == ConnectionState.done) {
       if (snapshot.hasData) {
         cryptoCurrencyRates = snapshot.data.toList();
-        return _buildCryptoCurrencyList(context);
+        return _buildCryptoCurrencyList();
       } else
         return SnackBar(
           content: Text(snapshot.error.toString()),
@@ -67,34 +54,29 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
     }
   }
 
-  Widget _buildCryptoCurrencyList(BuildContext context) =>
+  Widget _buildCryptoCurrencyList() =>
       RefreshIndicator(
         onRefresh: _refreshCurrencyRates,
         child: CryptoCurrencyList(
           cryptoCurrencies: cryptoCurrencyRates,
-          onValueSelected: (CryptoCurrencyRate cryptoCurrency) {
-            _navigateToCryptoCurrencyDetails(cryptoCurrency, context);
-          },
+          onValueSelected: _navigateToCryptoCurrencyDetails,
         ),
       );
 
   Future<Null> _refreshCurrencyRates() async {
     final updatedCryptoCurrencyRates =
-    await widget._cryptoCurrencyRepository.findByQuery(query);
+    await widget._cryptoCurrencyRepository.findAll();
     setState(() {
       cryptoCurrencyRates = updatedCryptoCurrencyRates.toList();
     });
   }
 
-  void _navigateToCryptoCurrencyDetails(CryptoCurrencyRate value,
-      BuildContext context) {
+  void _navigateToCryptoCurrencyDetails(CryptoCurrencyRate value) {
     Navigator.push(
       context,
       CupertinoPageRoute(
         builder: (context) =>
-            CryptoCurrencyDetailScreen(
-              cryptoCurrencyRate: value,
-            ),
+            CryptoCurrencyDetailScreen(cryptoCurrencyRate: value),
       ),
     );
   }

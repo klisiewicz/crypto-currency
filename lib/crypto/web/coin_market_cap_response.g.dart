@@ -18,10 +18,6 @@ CoinMarketCapResponse _$CoinMarketCapResponseFromJson(
                   e as Map<String, dynamic>))));
 }
 
-Map<String, dynamic> _$CoinMarketCapResponseToJson(
-        CoinMarketCapResponse instance) =>
-    <String, dynamic>{'data': instance.data};
-
 CoinMarketCapCurrency _$CoinMarketCapCurrencyFromJson(
     Map<String, dynamic> json) {
   return CoinMarketCapCurrency(
@@ -38,17 +34,6 @@ CoinMarketCapCurrency _$CoinMarketCapCurrencyFromJson(
                   : CoinMarketQuote.fromJson(e as Map<String, dynamic>))));
 }
 
-Map<String, dynamic> _$CoinMarketCapCurrencyToJson(
-        CoinMarketCapCurrency instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'symbol': instance.symbol,
-      'circulating_supply': instance.circulatingSupply,
-      'max_supply': instance.maxSupply,
-      'quotes': instance.quotes
-    };
-
 CoinMarketQuote _$CoinMarketQuoteFromJson(Map<String, dynamic> json) {
   return CoinMarketQuote(
       (json['price'] as num)?.toDouble(),
@@ -58,13 +43,3 @@ CoinMarketQuote _$CoinMarketQuoteFromJson(Map<String, dynamic> json) {
       (json['percent_change_24h'] as num)?.toDouble(),
       (json['percent_change_7d'] as num)?.toDouble());
 }
-
-Map<String, dynamic> _$CoinMarketQuoteToJson(CoinMarketQuote instance) =>
-    <String, dynamic>{
-      'price': instance.price,
-      'market_cap': instance.marketCap,
-      'volume': instance.volume,
-      'percent_change_1h': instance.percentageChangeLastHour,
-      'percent_change_24h': instance.percentageChangeLastDay,
-      'percent_change_7d': instance.percentageChangeLastWeek
-    };

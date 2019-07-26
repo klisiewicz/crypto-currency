@@ -11,7 +11,9 @@ class MoneyFormat {
 
     final decimalPlaces = (money.amount >= 1) ? 2 : 4;
     return NumberFormat.simpleCurrency(
-        locale: locale, name: money.currency, decimalDigits: decimalPlaces)
-        .format(money.amount);
+      locale: locale,
+      name: money.currency,
+      decimalDigits: decimalPlaces,
+    ).format(money.amount);
   }
 }

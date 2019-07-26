@@ -1,52 +1,54 @@
 import 'package:crypto_currency/crypto/cache/cache_policy.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_dao.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
-import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
+
+import 'crypto_currency_rate_repository.dart';
 
 class CryptoCurrencyRestRepository implements CryptoCurrencyRateRepository {
   final CryptoCurrencyRateService cryptoCurrencyRateService;
   final CryptoCurrencyRateDao cryptoCurrencyRateDao;
   final CachePolicy cache;
 
-  CryptoCurrencyRestRepository(this.cryptoCurrencyRateService,
-      this.cryptoCurrencyRateDao, this.cache)
-      : assert(cryptoCurrencyRateService != null),
+  CryptoCurrencyRestRepository(
+    this.cryptoCurrencyRateService,
+    this.cryptoCurrencyRateDao,
+    this.cache,
+  )   : assert(cryptoCurrencyRateService != null),
         assert(cryptoCurrencyRateService != null),
         assert(cache != null);
 
   @override
-  Future<Iterable<CryptoCurrencyRate>> findAll() async {
+  Future<List<CryptoCurrencyRate>> getAll() async {
     try {
-      return (cache.isValid())
-          ? _fetchFromLocalStorage()
-          : await _fetchFromService();
+      return (cache.isValid()) ? _fetchFromLocalStorage() : _fetchFromService();
     } catch (e) {
       return _fetchFromLocalStorage();
     }
   }
 
-  Future<Iterable<CryptoCurrencyRate>> _fetchFromService() async {
+  Future<List<CryptoCurrencyRate>> _fetchFromService() async {
     final cryptoCurrencyRates = await cryptoCurrencyRateService.fetchAll();
     await cryptoCurrencyRateDao.saveAll(cryptoCurrencyRates);
     return cryptoCurrencyRates;
   }
 
-  Future<Iterable<CryptoCurrencyRate>> _fetchFromLocalStorage() async {
-    return cryptoCurrencyRateDao.getAll();
-  }
+  Future<List<CryptoCurrencyRate>> _fetchFromLocalStorage() =>
+      cryptoCurrencyRateDao.getAll();
 
   @override
-  Future<Iterable<CryptoCurrencyRate>> findByQuery(String query) async {
+  Future<List<CryptoCurrencyRate>> getBy(String query) async {
     final cryptoCurrencyRates = await cryptoCurrencyRateService.fetchAll();
 
     return (isNotNullOrEmpty(query))
         ? cryptoCurrencyRates.where(
-          (CryptoCurrencyRate rate) =>
-      _nameContainsQuery(rate, query) ||
-          _symbolContainsQuery(rate, query),
-    )
+            (CryptoCurrencyRate rate) => _matchesQuery(rate, query),
+          )
         : cryptoCurrencyRates;
+  }
+
+  bool _matchesQuery(CryptoCurrencyRate rate, String query) {
+    return _nameContainsQuery(rate, query) || _symbolContainsQuery(rate, query);
   }
 
   bool isNotNullOrEmpty(String query) => query != null && query.isNotEmpty;

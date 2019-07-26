@@ -7,21 +7,23 @@ class CryptoCurrencyRateInMemoryDao implements CryptoCurrencyRateDao {
   final List<CryptoCurrencyRate> _currencies = [];
 
   @override
-  Future<Iterable<CryptoCurrencyRate>> getAll() async =>
+  Future<List<CryptoCurrencyRate>> getAll() async =>
       UnmodifiableListView(_currencies);
 
   @override
-  Future<Iterable<CryptoCurrencyRate>> getByName(String name) async =>
-      UnmodifiableListView(_currencies.where((cryptoCurrency) =>
-      cryptoCurrency.cryptoCurrency.name
-          .toLowerCase()
-          .contains(name.toLowerCase()) ||
-          cryptoCurrency.cryptoCurrency.symbol
-              .toLowerCase()
-              .contains(name.toLowerCase())));
+  Future<List<CryptoCurrencyRate>> getByName(String name) async =>
+      UnmodifiableListView(
+        _currencies.where((cryptoCurrency) =>
+            cryptoCurrency.cryptoCurrency.name
+                .toLowerCase()
+                .contains(name.toLowerCase()) ||
+            cryptoCurrency.cryptoCurrency.symbol
+                .toLowerCase()
+                .contains(name.toLowerCase())),
+      );
 
   @override
-  Future<void> saveAll(Iterable<CryptoCurrencyRate> currencies) async {
+  Future<void> saveAll(List<CryptoCurrencyRate> currencies) async {
     _currencies
       ..clear()
       ..addAll(currencies);

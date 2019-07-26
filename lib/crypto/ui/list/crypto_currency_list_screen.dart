@@ -8,7 +8,7 @@ import 'package:kiwi/kiwi.dart' as kiwi;
 
 class CryptoCurrencyListScreen extends StatefulWidget {
   final CryptoCurrencyRateRepository _cryptoCurrencyRepository =
-  new kiwi.Container()<CryptoCurrencyRateRepository>();
+      new kiwi.Container()<CryptoCurrencyRateRepository>();
 
   @override
   _CryptoCurrencyListScreenState createState() =>
@@ -19,8 +19,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
   List<CryptoCurrencyRate> cryptoCurrencyRates;
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(),
       );
@@ -35,7 +34,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
 
   Widget _buildCryptoCurrencyListLoader() {
     return FutureBuilder<Iterable<CryptoCurrencyRate>>(
-      future: widget._cryptoCurrencyRepository.findAll(),
+      future: widget._cryptoCurrencyRepository.getAll(),
       builder: _buildFromSnapshot,
     );
   }
@@ -54,8 +53,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
     }
   }
 
-  Widget _buildCryptoCurrencyList() =>
-      RefreshIndicator(
+  Widget _buildCryptoCurrencyList() => RefreshIndicator(
         onRefresh: _refreshCurrencyRates,
         child: CryptoCurrencyList(
           cryptoCurrencies: cryptoCurrencyRates,
@@ -65,7 +63,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
 
   Future<Null> _refreshCurrencyRates() async {
     final updatedCryptoCurrencyRates =
-    await widget._cryptoCurrencyRepository.findAll();
+        await widget._cryptoCurrencyRepository.getAll();
     setState(() {
       cryptoCurrencyRates = updatedCryptoCurrencyRates.toList();
     });

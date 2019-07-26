@@ -16,13 +16,26 @@ part 'injector.g.dart';
 
 abstract class Injector {
   @Register.factory(http.Client)
-  @Register.factory(CryptoCurrencyRateService,
-      from: CoinMarketCapCurrencyService)
-  @Register.factory(CryptoCurrencyRateDao, from: CryptoCurrencyRateInMemoryDao)
-  @Register.factory(DateTimeProvider, from: DateTimeNowProvider)
-  @Register.factory(CachePolicy, from: CacheTimePolicy)
-  @Register.singleton(CryptoCurrencyRateRepository,
-      from: CryptoCurrencyRestRepository)
+  @Register.factory(
+    CryptoCurrencyRateService,
+    from: CoinMarketCapCurrencyService,
+  )
+  @Register.factory(
+    CryptoCurrencyRateDao,
+    from: CryptoCurrencyRateInMemoryDao,
+  )
+  @Register.factory(
+    DateTimeProvider,
+    from: DateTimeNowProvider,
+  )
+  @Register.factory(
+    CachePolicy,
+    from: CacheTimePolicy,
+  )
+  @Register.singleton(
+    CryptoCurrencyRateRepository,
+    from: CryptoCurrencyRestRepository,
+  )
   void configure();
 
   static void inject() {

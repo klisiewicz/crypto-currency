@@ -41,9 +41,11 @@ class CryptoCurrencyRestRepository implements CryptoCurrencyRateRepository {
     final cryptoCurrencyRates = await cryptoCurrencyRateService.fetchAll();
 
     return (isNotNullOrEmpty(query))
-        ? cryptoCurrencyRates.where(
-            (CryptoCurrencyRate rate) => _matchesQuery(rate, query),
-          )
+        ? cryptoCurrencyRates
+            .where(
+              (CryptoCurrencyRate rate) => _matchesQuery(rate, query),
+            )
+            .toList()
         : cryptoCurrencyRates;
   }
 

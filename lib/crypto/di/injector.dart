@@ -2,6 +2,7 @@ import 'package:crypto_currency/crypto/cache/cache_policy.dart';
 import 'package:crypto_currency/crypto/cache/cache_time_policy.dart';
 import 'package:crypto_currency/crypto/db/crypto_currency_in_memory_dao.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_dao.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate_bloc.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_rest_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
@@ -36,6 +37,7 @@ abstract class Injector {
     CryptoCurrencyRateRepository,
     from: CryptoCurrencyRestRepository,
   )
+  @Register.factory(CryptoCurrencyRateBloc)
   void configure();
 
   static void inject() {

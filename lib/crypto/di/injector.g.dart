@@ -11,18 +11,19 @@ class _$Injector extends Injector {
     final Container container = Container();
     container.registerFactory((c) => Client());
     container.registerFactory<CryptoCurrencyRateService,
-        CoinMarketCapCurrencyService>(
-            (c) => CoinMarketCapCurrencyService(c<Client>()));
+            CoinMarketCapCurrencyService>(
+        (c) => CoinMarketCapCurrencyService(c<Client>()));
     container.registerFactory<CryptoCurrencyRateDao,
         CryptoCurrencyRateInMemoryDao>((c) => CryptoCurrencyRateInMemoryDao());
     container.registerFactory<DateTimeProvider, DateTimeNowProvider>(
-            (c) => DateTimeNowProvider());
+        (c) => DateTimeNowProvider());
     container.registerFactory<CachePolicy, CacheTimePolicy>(
-            (c) => CacheTimePolicy(c<DateTimeProvider>()));
+        (c) => CacheTimePolicy(c<DateTimeProvider>()));
     container.registerSingleton<CryptoCurrencyRateRepository,
             CryptoCurrencyRestRepository>(
-            (c) =>
-            CryptoCurrencyRestRepository(c<CryptoCurrencyRateService>(),
-                c<CryptoCurrencyRateDao>(), c<CachePolicy>()));
+        (c) => CryptoCurrencyRestRepository(c<CryptoCurrencyRateService>(),
+            c<CryptoCurrencyRateDao>(), c<CachePolicy>()));
+    container.registerFactory(
+        (c) => CryptoCurrencyRateBloc(c<CryptoCurrencyRateRepository>()));
   }
 }

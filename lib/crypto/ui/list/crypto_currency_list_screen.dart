@@ -20,7 +20,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
   @override
   void initState() {
     super.initState();
-    _cryptoCurrencyBloc.loadItems();
+    _cryptoCurrencyBloc.loadElements();
   }
 
   @override
@@ -34,7 +34,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
           onResult: (context, cryptoCurrencies) => CryptoCurrencyList(
             cryptoCurrencies: cryptoCurrencies,
             onValueSelected: _navigateToCryptoCurrencyDetails,
-            onRefresh: _cryptoCurrencyBloc.refreshItems,
+            onRefresh: _cryptoCurrencyBloc.refreshElements,
           ),
         ).build,
       ),

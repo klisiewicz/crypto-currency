@@ -15,7 +15,10 @@ dependencies:
   http: ^0.12.0+2
   equatable: ^0.3.0
   flutter_svg: ^0.13.1
-  
+  flutter_bloc_patterns:
+    git:
+      url: https://github.com/klisiewicz/flutter-bloc-patterns
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -58,7 +58,7 @@ main() {
   }
 
   Future<void> whenFetchingCryptoCurrencies() async {
-    cryptoCurrencies = await cryptoCurrencyRepository.findAll();
+    cryptoCurrencies = await cryptoCurrencyRepository.getAll();
   }
 
   void thenCryptoCurrenciesAreReturned() {
@@ -96,7 +96,7 @@ main() {
       givenExpiredCache();
 
       // When:
-      cryptoCurrencies = await cryptoCurrencyRepository.findAll();
+      cryptoCurrencies = await cryptoCurrencyRepository.getAll();
 
       print('asserting');
       // Then:
@@ -114,7 +114,7 @@ main() {
       givenValidCache();
 
       // When:
-      cryptoCurrencies = await cryptoCurrencyRepository.findAll();
+      cryptoCurrencies = await cryptoCurrencyRepository.getAll();
 
       // Then
       thenCryptoCurrenciesAreReturned();
@@ -128,7 +128,7 @@ main() {
       givenServiceReturningCryptoCurrencies();
       givenExpiredCache();
 
-      cryptoCurrencies = await cryptoCurrencyRepository.findAll();
+      cryptoCurrencies = await cryptoCurrencyRepository.getAll();
 
       thenCryptoCurrenciesAreSavedInLocalStorage();
     },
@@ -141,7 +141,7 @@ main() {
       givenDaoReturningCryptoCurrencies();
       givenExpiredCache();
 
-      cryptoCurrencies = await cryptoCurrencyRepository.findAll();
+      cryptoCurrencies = await cryptoCurrencyRepository.getAll();
 
       thenCryptoCurrenciesAreReturned();
     },
@@ -154,7 +154,7 @@ main() {
       givenDaoReturningCryptoCurrencies();
       givenValidCache();
 
-      cryptoCurrencies = await cryptoCurrencyRepository.findByQuery(null);
+      cryptoCurrencies = await cryptoCurrencyRepository.getBy(null);
 
       thenCryptoCurrenciesAreReturned();
     },
@@ -167,7 +167,7 @@ main() {
       givenDaoReturningCryptoCurrencies();
       givenValidCache();
 
-      cryptoCurrencies = await cryptoCurrencyRepository.findByQuery('bit');
+      cryptoCurrencies = await cryptoCurrencyRepository.getBy('bit');
 
       thenOnlyBitcoinIsReturned();
     },
@@ -180,7 +180,7 @@ main() {
       givenDaoReturningCryptoCurrencies();
       givenValidCache();
 
-      cryptoCurrencies = await cryptoCurrencyRepository.findByQuery('bt');
+      cryptoCurrencies = await cryptoCurrencyRepository.getBy('bt');
 
       thenOnlyBitcoinIsReturned();
     },

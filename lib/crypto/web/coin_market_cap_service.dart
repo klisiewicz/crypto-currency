@@ -17,7 +17,7 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
   CoinMarketCapCurrencyService(this.client);
 
   @override
-  Future<Iterable<CryptoCurrencyRate>> fetchAll() async {
+  Future<List<CryptoCurrencyRate>> fetchAll() async {
     return client
         .get(Uri.parse(_url))
         .then((Response response) => response.body)
@@ -27,7 +27,7 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
             (coinMarketCapResponse) => _toCurrencyRates(coinMarketCapResponse));
   }
 
-  Iterable<CryptoCurrencyRate> _toCurrencyRates(
+  List<CryptoCurrencyRate> _toCurrencyRates(
       CoinMarketCapResponse coinMarketCapResponse) =>
       coinMarketCapResponse.data.values.map(
             (CoinMarketCapCurrency it) {
@@ -57,7 +57,7 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
                 )),
           );
         },
-      );
+      ).toList();
 
   Trend _getTrend(double percentageChangeLastHour) {
     if (percentageChangeLastHour > 0)

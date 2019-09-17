@@ -7,7 +7,7 @@ class MoneyFormat {
   MoneyFormat([this.locale]);
 
   String format(Money money) {
-    if (money == null) return "";
+    if (money == null) return '';
 
     final decimalPlaces = (money.amount >= 1) ? 2 : 4;
     return NumberFormat.simpleCurrency(

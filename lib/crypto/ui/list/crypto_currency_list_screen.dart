@@ -1,6 +1,6 @@
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_bloc.dart';
-import 'package:crypto_currency/crypto/ui/detail/crypto_currency_detail_screen.dart';
+import 'package:crypto_currency/crypto/navigation/router.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,25 +37,19 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
             onValueSelected: _navigateToCryptoCurrencyDetails,
             onRefresh: _cryptoCurrencyBloc.refreshElements,
           ),
+          onRefreshing: (context, cryptoCurrencies) =>
+              CryptoCurrencyList(cryptoCurrencies: cryptoCurrencies),
         ).build,
       ),
     );
   }
 
-  void _navigateToCryptoCurrencyDetails(CryptoCurrencyRate value) {
-    Navigator.push(
-      context,
-      CupertinoPageRoute(
-        builder: (context) => CryptoCurrencyDetailScreen(
-          cryptoCurrencyRate: value,
-        ),
-      ),
-    );
-  }
+  void _navigateToCryptoCurrencyDetails(CryptoCurrencyRate value) =>
+      Navigator.pushNamed(context, Routes.details, arguments: value);
 
   @override
   void dispose() {
-    super.dispose();
     _cryptoCurrencyBloc.dispose();
+    super.dispose();
   }
 }

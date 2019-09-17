@@ -10,9 +10,8 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
   final NumberFormat numberFormat = NumberFormat.decimalPattern();
   final MoneyFormat moneyFormat = MoneyFormat();
 
-  CryptoCurrencyDetailScreen({
+  CryptoCurrencyDetailScreen(this.cryptoCurrencyRate, {
     Key key,
-    @required this.cryptoCurrencyRate,
   })
       : assert(cryptoCurrencyRate != null),
         super(key: key);

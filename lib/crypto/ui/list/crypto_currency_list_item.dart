@@ -26,8 +26,10 @@ class CryptoCurrencyListItem extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: _buildContent(context),
             decoration: BoxDecoration(
-                border:
-                Border(bottom: BorderSide(color: dividerColor(context)))),
+              border: Border(
+                bottom: BorderSide(color: dividerColor(context)),
+              ),
+            ),
           ),
         ),
       );
@@ -62,7 +64,7 @@ class CryptoCurrencyListItem extends StatelessWidget {
               cryptoCurrencyRate.cryptoCurrency.symbol,
               style: subheadStyle(context),
             ),
-            Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+            SizedBox(height: 2),
             Text(
               cryptoCurrencyRate.cryptoCurrency.name,
               style: captionStyle(context),

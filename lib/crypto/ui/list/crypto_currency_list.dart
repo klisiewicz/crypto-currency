@@ -6,7 +6,7 @@ import 'package:flutter_bloc_patterns/base_list.dart';
 class CryptoCurrencyList extends StatelessWidget {
   final List<CryptoCurrencyRate> cryptoCurrencies;
   final ValueSetter<CryptoCurrencyRate> onValueSelected;
-  final RefreshListCallback onRefresh;
+  final VoidCallback onRefresh;
 
   const CryptoCurrencyList({
     Key key,
@@ -19,7 +19,7 @@ class CryptoCurrencyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListViewRefresh(
+    return RefreshView(
       child: ListView.builder(
         itemCount: cryptoCurrencies.length,
         itemBuilder: (BuildContext context, int index) =>

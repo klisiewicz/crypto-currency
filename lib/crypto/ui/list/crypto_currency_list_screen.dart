@@ -5,7 +5,7 @@ import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_patterns/filter_list.dart';
+import 'package:flutter_bloc_patterns/base_list.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
 
 class CryptoCurrencyListScreen extends StatefulWidget {
@@ -29,9 +29,10 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
       appBar: AppBar(title: Text('Cryptocurrencies')),
       body: BlocBuilder(
         bloc: _cryptoCurrencyBloc,
-        builder: ListViewBuilder<CryptoCurrencyRate>(
+        builder: ViewStateBuilder<List<CryptoCurrencyRate>>(
           onLoading: (context) => LinearProgressIndicator(),
-          onResult: (context, cryptoCurrencies) => CryptoCurrencyList(
+          onSuccess: (context, cryptoCurrencies) =>
+              CryptoCurrencyList(
             cryptoCurrencies: cryptoCurrencies,
             onValueSelected: _navigateToCryptoCurrencyDetails,
             onRefresh: _cryptoCurrencyBloc.refreshElements,

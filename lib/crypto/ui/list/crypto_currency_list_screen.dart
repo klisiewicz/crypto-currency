@@ -1,12 +1,11 @@
+import 'package:crypto_currency/crypto/di/injector.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_bloc.dart';
 import 'package:crypto_currency/crypto/navigation/router.dart';
 import 'package:crypto_currency/crypto/ui/list/crypto_currency_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_patterns/base_list.dart';
-import 'package:kiwi/kiwi.dart' as kiwi;
 
 class CryptoCurrencyListScreen extends StatefulWidget {
   @override
@@ -15,7 +14,7 @@ class CryptoCurrencyListScreen extends StatefulWidget {
 }
 
 class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
-  final _cryptoCurrencyBloc = new kiwi.Container()<CryptoCurrencyRateBloc>();
+  final _cryptoCurrencyBloc = inject()<CryptoCurrencyRateBloc>();
 
   @override
   void initState() {
@@ -27,19 +26,16 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Cryptocurrencies')),
-      body: BlocBuilder(
+      body: ViewStateBuilder<List<CryptoCurrencyRate>, CryptoCurrencyRateBloc>(
         bloc: _cryptoCurrencyBloc,
-        builder: ViewStateBuilder<List<CryptoCurrencyRate>>(
-          onLoading: (context) => LinearProgressIndicator(),
-          onSuccess: (context, cryptoCurrencies) =>
-              CryptoCurrencyList(
-            cryptoCurrencies: cryptoCurrencies,
-            onValueSelected: _navigateToCryptoCurrencyDetails,
-            onRefresh: _cryptoCurrencyBloc.refreshElements,
-          ),
-          onRefreshing: (context, cryptoCurrencies) =>
-              CryptoCurrencyList(cryptoCurrencies: cryptoCurrencies),
-        ).build,
+        onLoading: (context) => LinearProgressIndicator(),
+        onSuccess: (context, cryptoCurrencies) => CryptoCurrencyList(
+          cryptoCurrencies: cryptoCurrencies,
+          onValueSelected: _navigateToCryptoCurrencyDetails,
+          onRefresh: _cryptoCurrencyBloc.refreshElements,
+        ),
+        onRefreshing: (context, cryptoCurrencies) =>
+            CryptoCurrencyList(cryptoCurrencies: cryptoCurrencies),
       ),
     );
   }

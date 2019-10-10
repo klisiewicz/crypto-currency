@@ -5,12 +5,12 @@ import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
 
 import 'crypto_currency_rate_repository.dart';
 
-class CryptoCurrencyRestRepository implements CryptoCurrencyRateRepository {
+class CryptoCurrencyCacheRepository implements CryptoCurrencyRateRepository {
   final CryptoCurrencyRateService cryptoCurrencyRateService;
   final CryptoCurrencyRateDao cryptoCurrencyRateDao;
   final CachePolicy cache;
 
-  CryptoCurrencyRestRepository(
+  CryptoCurrencyCacheRepository(
     this.cryptoCurrencyRateService,
     this.cryptoCurrencyRateDao,
     this.cache,
@@ -42,9 +42,7 @@ class CryptoCurrencyRestRepository implements CryptoCurrencyRateRepository {
 
     return (isNotNullOrEmpty(query))
         ? cryptoCurrencyRates
-            .where(
-              (CryptoCurrencyRate rate) => _matchesQuery(rate, query),
-            )
+            .where((rate) => _matchesQuery(rate, query))
             .toList()
         : cryptoCurrencyRates;
   }

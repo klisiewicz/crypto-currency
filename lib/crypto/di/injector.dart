@@ -3,8 +3,8 @@ import 'package:crypto_currency/crypto/cache/cache_time_policy.dart';
 import 'package:crypto_currency/crypto/db/crypto_currency_in_memory_dao.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_dao.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_bloc.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate_cache_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
-import 'package:crypto_currency/crypto/domain/crypto_currency_rate_rest_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
 import 'package:crypto_currency/crypto/time/date_time_now_provider.dart';
 import 'package:crypto_currency/crypto/time/date_time_provider.dart';
@@ -35,7 +35,7 @@ abstract class Injector {
   )
   @Register.singleton(
     CryptoCurrencyRateRepository,
-    from: CryptoCurrencyRestRepository,
+    from: CryptoCurrencyCacheRepository,
   )
   @Register.factory(CryptoCurrencyRateBloc)
   void configure();
@@ -44,3 +44,5 @@ abstract class Injector {
     _$Injector().configure();
   }
 }
+
+T inject<T>([String name]) => Container().resolve<T>(name);

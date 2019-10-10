@@ -1,8 +1,8 @@
 import 'package:crypto_currency/crypto/cache/cache_policy.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_dao.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate.dart';
+import 'package:crypto_currency/crypto/domain/crypto_currency_rate_cache_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_rate_repository.dart';
-import 'package:crypto_currency/crypto/domain/crypto_currency_rate_rest_repository.dart';
 import 'package:crypto_currency/crypto/domain/crypto_currency_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -31,22 +31,22 @@ main() {
     cryptoCurrencyRateDao = _CryptoCurrencyRateDaoMock();
     cachePolicy = _CachePolicyMock();
 
-    cryptoCurrencyRepository = CryptoCurrencyRestRepository(
+    cryptoCurrencyRepository = CryptoCurrencyCacheRepository(
         cryptoCurrencyRateService, cryptoCurrencyRateDao, cachePolicy);
   });
 
   void givenServiceReturningCryptoCurrencies() {
     when(cryptoCurrencyRateService.fetchAll())
-        .thenAnswer((_) => new Future.value([bitcoinRate, etherumRate]));
+        .thenAnswer((_) async => [bitcoinRate, etherumRate]);
   }
 
   void givenServiceReturningError() {
-    when(cryptoCurrencyRateService.fetchAll()).thenThrow(Error());
+    when(cryptoCurrencyRateService.fetchAll()).thenThrow(Exception());
   }
 
   void givenDaoReturningCryptoCurrencies() {
     when(cryptoCurrencyRateDao.getAll())
-        .thenAnswer((_) => new Future.value([bitcoinRate, etherumRate]));
+        .thenAnswer((_) async => [bitcoinRate, etherumRate]);
   }
 
   void givenExpiredCache() {
@@ -90,7 +90,7 @@ main() {
 
   test(
     "when cache has expired should return crypto currencies from the service",
-        () async {
+    () async {
       // Given:
       givenServiceReturningCryptoCurrencies();
       givenExpiredCache();
@@ -107,7 +107,7 @@ main() {
 
   test(
     "when cache has not expired should return crypto currencies from the local storage",
-        () async {
+    () async {
       // Given:
       givenServiceReturningCryptoCurrencies();
       givenDaoReturningCryptoCurrencies();
@@ -124,7 +124,7 @@ main() {
 
   test(
     "should save crypto currencies from the service in the local storage",
-        () async {
+    () async {
       givenServiceReturningCryptoCurrencies();
       givenExpiredCache();
 
@@ -136,7 +136,7 @@ main() {
 
   test(
     "should return currencies from local storage when fetching from network fails",
-        () async {
+    () async {
       givenServiceReturningError();
       givenDaoReturningCryptoCurrencies();
       givenExpiredCache();
@@ -149,7 +149,7 @@ main() {
 
   test(
     "should return all currencies when no query is given",
-        () async {
+    () async {
       givenServiceReturningCryptoCurrencies();
       givenDaoReturningCryptoCurrencies();
       givenValidCache();
@@ -162,7 +162,7 @@ main() {
 
   test(
     "should return currencies which name matches the query",
-        () async {
+    () async {
       givenServiceReturningCryptoCurrencies();
       givenDaoReturningCryptoCurrencies();
       givenValidCache();
@@ -175,7 +175,7 @@ main() {
 
   test(
     "should return currencies which symbol matches the query",
-        () async {
+    () async {
       givenServiceReturningCryptoCurrencies();
       givenDaoReturningCryptoCurrencies();
       givenValidCache();

@@ -20,8 +20,8 @@ class _$Injector extends Injector {
     container.registerFactory<CachePolicy, CacheTimePolicy>(
         (c) => CacheTimePolicy(c<DateTimeProvider>()));
     container.registerSingleton<CryptoCurrencyRateRepository,
-            CryptoCurrencyRestRepository>(
-        (c) => CryptoCurrencyRestRepository(c<CryptoCurrencyRateService>(),
+            CryptoCurrencyCacheRepository>(
+        (c) => CryptoCurrencyCacheRepository(c<CryptoCurrencyRateService>(),
             c<CryptoCurrencyRateDao>(), c<CachePolicy>()));
     container.registerFactory(
         (c) => CryptoCurrencyRateBloc(c<CryptoCurrencyRateRepository>()));

@@ -4,8 +4,11 @@ class Supply extends Equatable {
   final double circulating;
   final double max;
 
-  Supply({
+  const Supply({
     this.circulating,
     this.max,
-  }) : super([circulating, max]);
+  });
+
+  @override
+  List<Object> get props => [circulating, max];
 }

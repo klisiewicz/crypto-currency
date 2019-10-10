@@ -12,22 +12,18 @@ class CryptoCurrencyRate extends Equatable {
   final double marketCap;
   final TrendHistory trendHistory;
 
-  CryptoCurrencyRate({
+  const CryptoCurrencyRate({
     @required this.cryptoCurrency,
     @required this.supply,
     @required this.price,
     @required this.marketCap,
     @required this.trendHistory,
-  })
-      : assert(cryptoCurrency != null),
+  })  : assert(cryptoCurrency != null),
         assert(price != null),
         assert(supply != null),
-        assert(trendHistory != null),
-        super([
-        cryptoCurrency,
-        supply,
-        price,
-        marketCap,
-        trendHistory,
-      ]);
+        assert(trendHistory != null);
+
+  @override
+  List<Object> get props =>
+      [cryptoCurrency, supply, price, marketCap, trendHistory];
 }

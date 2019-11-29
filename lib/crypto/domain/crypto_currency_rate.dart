@@ -5,6 +5,7 @@ import 'package:crypto_currency/crypto/domain/money.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+@immutable
 class CryptoCurrencyRate extends Equatable {
   final CryptoCurrency cryptoCurrency;
   final Supply supply;

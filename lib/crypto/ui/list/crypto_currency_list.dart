@@ -8,9 +8,8 @@ class CryptoCurrencyList extends StatelessWidget {
   final ValueSetter<CryptoCurrencyRate> onValueSelected;
   final VoidCallback onRefresh;
 
-  const CryptoCurrencyList({
+  const CryptoCurrencyList(this.cryptoCurrencies, {
     Key key,
-    @required this.cryptoCurrencies,
     this.onValueSelected,
     this.onRefresh,
   })

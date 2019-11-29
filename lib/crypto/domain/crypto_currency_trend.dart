@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+@immutable
 class TrendHistory extends Equatable {
   final TrendValue hour;
   final TrendValue day;

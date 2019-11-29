@@ -28,11 +28,11 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
   }
 
   List<CryptoCurrencyRate> _toCurrencyRates(
-      CoinMarketCapResponse coinMarketCapResponse) =>
+          CoinMarketCapResponse coinMarketCapResponse) =>
       coinMarketCapResponse.data.values.map(
-            (CoinMarketCapCurrency it) {
+        (CoinMarketCapCurrency it) {
           final currency =
-          CryptoCurrency(id: it.id, name: it.name, symbol: it.symbol);
+              CryptoCurrency(id: it.id, name: it.name, symbol: it.symbol);
           var quote = it.quotes.values.first;
           return CryptoCurrencyRate(
             cryptoCurrency: currency,
@@ -60,11 +60,12 @@ class CoinMarketCapCurrencyService implements CryptoCurrencyRateService {
       ).toList();
 
   Trend _getTrend(double percentageChangeLastHour) {
-    if (percentageChangeLastHour > 0)
+    if (percentageChangeLastHour > 0) {
       return Trend.rising;
-    else if (percentageChangeLastHour == 0)
+    } else if (percentageChangeLastHour == 0) {
       return Trend.standing;
-    else
+    } else {
       return Trend.falling;
+    }
   }
 }

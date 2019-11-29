@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+@immutable
 class CryptoCurrency extends Equatable {
   final int id;
   final String name;

@@ -10,26 +10,23 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
   final NumberFormat numberFormat = NumberFormat.decimalPattern();
   final MoneyFormat moneyFormat = MoneyFormat();
 
-  CryptoCurrencyDetailScreen(this.cryptoCurrencyRate, {
+  CryptoCurrencyDetailScreen(
+    this.cryptoCurrencyRate, {
     Key key,
-  })
-      : assert(cryptoCurrencyRate != null),
+  })  : assert(cryptoCurrencyRate != null),
         super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(context),
       );
 
-  Widget _buildAppBar() =>
-      AppBar(
+  Widget _buildAppBar() => AppBar(
         title: Text(cryptoCurrencyRate.cryptoCurrency.name),
       );
 
-  Widget _buildBody(BuildContext context) =>
-      SingleChildScrollView(
+  Widget _buildBody(BuildContext context) => SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
@@ -49,9 +46,7 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
           'Market Cap', numberFormat.format(cryptoCurrencyRate.marketCap)),
       Divider(),
       _buildLabeledTextField('Circulating Supply',
-          '${numberFormat.format(
-              cryptoCurrencyRate.supply.circulating)} ${cryptoCurrencyRate
-              .cryptoCurrency.symbol}'),
+          '${numberFormat.format(cryptoCurrencyRate.supply.circulating)} ${cryptoCurrencyRate.cryptoCurrency.symbol}'),
       _buildMaxSupply(),
       Divider(),
       _buildTrendLabeledTextField(
@@ -64,17 +59,15 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
   }
 
   Widget _buildMaxSupply() {
-    if (cryptoCurrencyRate.supply.max != null)
-      return _buildLabeledTextField('Max Supply',
-          '${numberFormat.format(
-              cryptoCurrencyRate.supply.max)} ${cryptoCurrencyRate
-              .cryptoCurrency.symbol}');
-    else
-      return Container();
+    return cryptoCurrencyRate.supply.max != null
+        ? _buildLabeledTextField(
+            'Max Supply',
+            '${numberFormat.format(cryptoCurrencyRate.supply.max)} ${cryptoCurrencyRate.cryptoCurrency.symbol}',
+          )
+        : SizedBox();
   }
 
-  Widget _buildLabeledTextField(String label, String text) =>
-      TextField(
+  Widget _buildLabeledTextField(String label, String text) => TextField(
         decoration: InputDecoration(
           border: InputBorder.none,
           labelText: label,
@@ -83,9 +76,11 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
         controller: TextEditingController(text: text),
       );
 
-  Widget _buildTrendLabeledTextField(BuildContext context,
-      String label,
-      TrendValue trendValue,) =>
+  Widget _buildTrendLabeledTextField(
+    BuildContext context,
+    String label,
+    TrendValue trendValue,
+  ) =>
       TextField(
         decoration: InputDecoration(
           border: InputBorder.none,

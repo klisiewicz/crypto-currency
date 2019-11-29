@@ -14,12 +14,12 @@ class CryptoCurrencyListScreen extends StatefulWidget {
 }
 
 class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
-  final _cryptoCurrencyBloc = inject()<CryptoCurrencyRateBloc>();
+  CryptoCurrencyRateBloc _cryptoCurrencyBloc;
 
   @override
   void initState() {
     super.initState();
-    _cryptoCurrencyBloc.loadElements();
+    _cryptoCurrencyBloc = inject<CryptoCurrencyRateBloc>()..loadElements();
   }
 
   @override
@@ -30,12 +30,12 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
         bloc: _cryptoCurrencyBloc,
         onLoading: (context) => LinearProgressIndicator(),
         onSuccess: (context, cryptoCurrencies) => CryptoCurrencyList(
-          cryptoCurrencies: cryptoCurrencies,
+          cryptoCurrencies,
           onValueSelected: _navigateToCryptoCurrencyDetails,
           onRefresh: _cryptoCurrencyBloc.refreshElements,
         ),
         onRefreshing: (context, cryptoCurrencies) =>
-            CryptoCurrencyList(cryptoCurrencies: cryptoCurrencies),
+            CryptoCurrencyList(cryptoCurrencies),
       ),
     );
   }
@@ -45,7 +45,7 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
 
   @override
   void dispose() {
-    _cryptoCurrencyBloc.dispose();
+    _cryptoCurrencyBloc.close();
     super.dispose();
   }
 }

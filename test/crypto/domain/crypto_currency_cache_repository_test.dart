@@ -57,10 +57,6 @@ main() {
     when(cachePolicy.isValid()).thenReturn(true);
   }
 
-  Future<void> whenFetchingCryptoCurrencies() async {
-    cryptoCurrencies = await cryptoCurrencyRepository.getAll();
-  }
-
   void thenCryptoCurrenciesAreReturned() {
     var cryptoCurrenciesList = cryptoCurrencies.toList();
     expect(cryptoCurrenciesList.length, 2);

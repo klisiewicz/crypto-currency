@@ -23,7 +23,8 @@ class CoinMarketCapCryptoCurrencyDataSource
         .get(Uri.parse(_url))
         .then((Response response) => response.body)
         .then(json.decode)
-        .then((parsedJson) => CoinMarketCapResponse.fromJson(parsedJson))
+        .then((parsedJson) =>
+            CoinMarketCapResponse.fromJson(parsedJson as Map<String, dynamic>))
         .then(
           (coinMarketCapResponse) => _toCurrencyRates(coinMarketCapResponse),
         );

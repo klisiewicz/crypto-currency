@@ -25,7 +25,7 @@ void main() {
     clock.dates = [DateTime.now()];
 
     // When:
-    var isValid = cachePolicy.isValid();
+    final isValid = cachePolicy.isValid();
 
     // Then:
     expect(isValid, false);
@@ -34,7 +34,7 @@ void main() {
   test("should be invalid when enough time has passed", () {
     // Given
     final now = DateTime.now();
-    clock.dates = [now, now.add(Duration(minutes: 5, seconds: 0))];
+    clock.dates = [now, now.add(const Duration(minutes: 5, seconds: 0))];
 
     cachePolicy.isValid();
 
@@ -47,13 +47,13 @@ void main() {
 
   test("should be valid when not enough time has passed", () {
     final now = DateTime.now();
-    clock.dates = [now, now.add(Duration(minutes: 4, seconds: 59))];
+    clock.dates = [now, now.add(const Duration(minutes: 4, seconds: 59))];
 
     // Given
     cachePolicy.isValid();
 
     // When:
-    var isValid = cachePolicy.isValid();
+    final isValid = cachePolicy.isValid();
 
     // Then:
     expect(isValid, true);

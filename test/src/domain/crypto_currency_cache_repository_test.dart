@@ -12,8 +12,8 @@ import 'crypto_currency_test_data.dart';
 class _CryptoCurrencyRateServiceMock extends Mock
     implements CryptoCurrencyRateDataSource {}
 
-class _CryptoCurrencyRateDaoMock extends Mock implements CryptoCurrencyRateDataStorage {
-}
+class _CryptoCurrencyRateDaoMock extends Mock
+    implements CryptoCurrencyRateDataStorage {}
 
 class _CachePolicyMock extends Mock implements CachePolicy {}
 
@@ -23,7 +23,7 @@ void main() {
   CryptoCurrencyRateDataStorage cryptoCurrencyDataStorage;
   CachePolicy cachePolicy;
 
-  Iterable<CryptoCurrencyRate> cryptoCurrencies = [];
+  List<CryptoCurrencyRate> cryptoCurrencies = [];
 
   setUp(() {
     cryptoCurrencies = [];
@@ -60,14 +60,14 @@ void main() {
   }
 
   void thenCryptoCurrenciesAreReturned() {
-    var cryptoCurrenciesList = cryptoCurrencies.toList();
+    final cryptoCurrenciesList = cryptoCurrencies.toList();
     expect(cryptoCurrenciesList.length, 2);
     expect(cryptoCurrenciesList[0], bitcoinRate);
     expect(cryptoCurrenciesList[1], etherumRate);
   }
 
   void thenOnlyBitcoinIsReturned() {
-    var cryptoCurrenciesList = cryptoCurrencies.toList();
+    final cryptoCurrenciesList = cryptoCurrencies.toList();
     expect(cryptoCurrenciesList.length, 1);
     expect(cryptoCurrenciesList[0], bitcoinRate);
   }
@@ -96,7 +96,6 @@ void main() {
       // When:
       cryptoCurrencies = await cryptoCurrencyRepository.getAll();
 
-      print('asserting');
       // Then:
       thenCryptoCurrenciesAreReturned();
       thenCryptoCurrenciesWereFetchedFromService();

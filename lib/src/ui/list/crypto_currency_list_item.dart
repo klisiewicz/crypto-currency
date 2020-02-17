@@ -8,7 +8,7 @@ class CryptoCurrencyListItem extends StatelessWidget {
   final CryptoCurrencyRate cryptoCurrencyRate;
   final GestureTapCallback onTap;
 
-  CryptoCurrencyListItem({
+  const CryptoCurrencyListItem({
     Key key,
     @required this.cryptoCurrencyRate,
     this.onTap,
@@ -52,7 +52,7 @@ class _CryptoCurrencyImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       'assets/icons/${cryptoCurrencyRate.cryptoCurrency.symbol.toLowerCase()}.svg',
-      placeholderBuilder: (context) => CircleAvatar(),
+      placeholderBuilder: (context) => const CircleAvatar(),
     );
   }
 }
@@ -72,7 +72,7 @@ class _CryptoCurrencyName extends StatelessWidget {
           cryptoCurrencyRate.cryptoCurrency.symbol,
           style: context.subhead,
         ),
-        SizedBox(height: 2),
+        const SizedBox(height: 2),
         Text(
           cryptoCurrencyRate.cryptoCurrency.name,
           style: context.caption,
@@ -93,7 +93,7 @@ class _CryptoCurrencyRate extends StatelessWidget {
     return Row(
       children: <Widget>[
         Text(moneyFormat.format(cryptoCurrencyRate.price)),
-        SizedBox(width: 16.0),
+        const SizedBox(width: 16.0),
         TrendIcon(cryptoCurrencyRate.trendHistory.hour.trend),
       ],
     );

@@ -4,7 +4,7 @@ import 'package:crypto_currency/src/domain/entity/crypto_currency_supply.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_trend.dart';
 import 'package:crypto_currency/src/domain/entity/money.dart';
 
-final bitcoinRate = CryptoCurrencyRate(
+const bitcoinRate = CryptoCurrencyRate(
   cryptoCurrency: CryptoCurrency(id: 1, name: 'Bitcoin', symbol: 'BTC'),
   price: Money(amount: 9024.09, currency: 'USD'),
   marketCap: 153483184623.0,
@@ -16,7 +16,7 @@ final bitcoinRate = CryptoCurrencyRate(
   ),
 );
 
-final etherumRate = CryptoCurrencyRate(
+const etherumRate = CryptoCurrencyRate(
   cryptoCurrency: CryptoCurrency(id: 1027, name: 'Ethereum', symbol: 'ETH'),
   price: Money(amount: 642.399, currency: 'USD'),
   marketCap: 63695073558.0,

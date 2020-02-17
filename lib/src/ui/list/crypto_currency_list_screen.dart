@@ -25,10 +25,10 @@ class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Cryptocurrencies')),
+      appBar: AppBar(title: const Text('Cryptocurrencies')),
       body: ViewStateBuilder<List<CryptoCurrencyRate>, CryptoCurrencyRateBloc>(
         bloc: _cryptoCurrencyBloc,
-        onLoading: (context) => LinearProgressIndicator(),
+        onLoading: (context) => const LinearProgressIndicator(),
         onSuccess: (context, cryptoCurrencies) => CryptoCurrencyList(
           cryptoCurrencies,
           onValueSelected: _navigateToCryptoCurrencyDetails,

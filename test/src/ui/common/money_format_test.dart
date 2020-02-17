@@ -22,7 +22,7 @@ void main() {
       () {
     // When
     final formattedMoney =
-        moneyFormat.format(Money(amount: 1.0000, currency: "USD"));
+        moneyFormat.format(const Money(amount: 1.0000, currency: "USD"));
 
     // Then
     expect(formattedMoney, "\$1.00");
@@ -33,7 +33,7 @@ void main() {
       () {
     // When
     final formattedMoney =
-        moneyFormat.format(Money(amount: 0.9999, currency: "USD"));
+        moneyFormat.format(const Money(amount: 0.9999, currency: "USD"));
 
     // Then
     expect(formattedMoney, "\$0.9999");

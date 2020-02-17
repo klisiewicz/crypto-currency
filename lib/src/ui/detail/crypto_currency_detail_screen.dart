@@ -24,7 +24,7 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
                 label: 'Market Cap',
                 text: numberFormat.format(cryptoCurrencyRate.marketCap),
               ),
-              Divider(),
+              const Divider(),
               _LabeledTextField(
                 label: 'Circulating Supply',
                 text:
@@ -50,7 +50,7 @@ class CryptoCurrencyDetailScreen extends StatelessWidget {
                   text:
                       '${numberFormat.format(cryptoCurrencyRate.supply.max)} ${cryptoCurrencyRate.cryptoCurrency.symbol}',
                 ),
-              Divider(),
+              const Divider(),
               _TrendLabeledTextField(
                 label: 'Change (1h)',
                 trendValue: cryptoCurrencyRate.trendHistory.hour,

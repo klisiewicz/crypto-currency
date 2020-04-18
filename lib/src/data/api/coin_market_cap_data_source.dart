@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:crypto_currency/src/data/api/coin_market_cap_response.dart';
-import 'package:crypto_currency/src/domain/crypto_currency_reate_data_source.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_rate.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_supply.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_trend.dart';
 import 'package:crypto_currency/src/domain/entity/money.dart';
+import 'package:crypto_currency/src/domain/repository/crypto_currency_reate_data_source.dart';
 import 'package:http/http.dart';
 
 class CoinMarketCapCryptoCurrencyDataSource

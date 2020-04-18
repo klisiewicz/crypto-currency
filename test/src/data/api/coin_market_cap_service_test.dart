@@ -1,6 +1,6 @@
 import 'package:crypto_currency/src/data/api/coin_market_cap_data_source.dart';
-import 'package:crypto_currency/src/domain/crypto_currency_reate_data_source.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_rate.dart';
+import 'package:crypto_currency/src/domain/repository/crypto_currency_reate_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/testing.dart';
 
@@ -12,7 +12,7 @@ void main() {
     // Given:
     final CryptoCurrencyRateDataSource cryptoCurrencyService =
         CoinMarketCapCryptoCurrencyDataSource(MockClient((request) async {
-          return cryptoCurrencies200Response;
+      return cryptoCurrencies200Response;
     }));
 
     // When:

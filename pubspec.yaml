@@ -14,8 +14,8 @@ dependencies:
   intl: ^0.16.1
   kiwi: ^0.2.0
   json_annotation: ^3.0.1
-  flutter_svg: ^0.17.1
-  flutter_bloc_patterns: ^0.4.0
+  flutter_svg: ^0.17.4
+  flutter_bloc_patterns: ^0.6.0
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,7 @@
 import 'package:crypto_currency/src/data/cache/cache_policy.dart';
-import 'package:crypto_currency/src/domain/crypto_currency_rate_data_storage.dart';
-import 'package:crypto_currency/src/domain/crypto_currency_reate_data_source.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_rate.dart';
+import 'package:crypto_currency/src/domain/repository/crypto_currency_rate_data_storage.dart';
+import 'package:crypto_currency/src/domain/repository/crypto_currency_reate_data_source.dart';
 import 'package:pedantic/pedantic.dart';
 
 import 'crypto_currency_rate_repository.dart';

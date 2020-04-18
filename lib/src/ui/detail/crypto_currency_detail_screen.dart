@@ -85,13 +85,13 @@ class _LabeledTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
         border: InputBorder.none,
         labelText: label,
         enabled: false,
       ),
-      controller: TextEditingController(text: text),
+      initialValue: text,
     );
   }
 }
@@ -110,16 +110,14 @@ class _TrendLabeledTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
         border: InputBorder.none,
         labelText: label,
         enabled: false,
         suffixIcon: TrendIcon(trendValue.trend),
       ),
-      controller: TextEditingController(
-        text: '${trendValue.value.toStringAsFixed(2)} %',
-      ),
+      initialValue: '${trendValue.value.toStringAsFixed(2)} %',
     );
   }
 }

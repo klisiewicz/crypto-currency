@@ -1,7 +1,7 @@
 import 'dart:collection';
 
-import 'package:crypto_currency/src/domain/crypto_currency_rate_data_storage.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_rate.dart';
+import 'package:crypto_currency/src/domain/repository/crypto_currency_rate_data_storage.dart';
 
 class CryptoCurrencyRateInMemoryDao implements CryptoCurrencyRateDataStorage {
   final List<CryptoCurrencyRate> _currencies = [];
@@ -13,13 +13,11 @@ class CryptoCurrencyRateInMemoryDao implements CryptoCurrencyRateDataStorage {
   @override
   Future<List<CryptoCurrencyRate>> getByName(String name) async =>
       UnmodifiableListView(
-        _currencies.where((cryptoCurrency) =>
-            cryptoCurrency.cryptoCurrency.name
-                .toLowerCase()
-                .contains(name.toLowerCase()) ||
-            cryptoCurrency.cryptoCurrency.symbol
-                .toLowerCase()
-                .contains(name.toLowerCase())),
+        _currencies.where(
+          (cryptoCurrency) =>
+              cryptoCurrency._matchesName(name) ||
+              cryptoCurrency._matchesSymbol(name),
+        ),
       );
 
   @override
@@ -27,5 +25,15 @@ class CryptoCurrencyRateInMemoryDao implements CryptoCurrencyRateDataStorage {
     _currencies
       ..clear()
       ..addAll(currencies);
+  }
+}
+
+extension on CryptoCurrencyRate {
+  bool _matchesName(String value) {
+    return cryptoCurrency.name.toLowerCase().contains(value.toLowerCase());
+  }
+
+  bool _matchesSymbol(String value) {
+    return cryptoCurrency.symbol.toLowerCase().contains(value.toLowerCase());
   }
 }

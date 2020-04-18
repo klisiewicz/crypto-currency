@@ -1,7 +1,7 @@
 import 'package:crypto_currency/src/domain/entity/crypto_currency_rate.dart';
 import 'package:crypto_currency/src/ui/list/crypto_currency_list_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_patterns/base_list.dart';
+import 'package:flutter_bloc_patterns/view.dart';
 
 class CryptoCurrencyList extends StatelessWidget {
   final List<CryptoCurrencyRate> cryptoCurrencies;

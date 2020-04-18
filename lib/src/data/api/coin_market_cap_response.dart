@@ -4,12 +4,14 @@ part 'coin_market_cap_response.g.dart';
 
 @JsonSerializable()
 class CoinMarketCapResponse {
-  final Map<String, CoinMarketCapCurrency> data;
+  final List<CoinMarketCapCurrency> data;
 
   CoinMarketCapResponse(this.data);
 
   factory CoinMarketCapResponse.fromJson(Map<String, dynamic> json) =>
       _$CoinMarketCapResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CoinMarketCapResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -21,7 +23,7 @@ class CoinMarketCapCurrency {
   final double circulatingSupply;
   @JsonKey(name: 'max_supply')
   final double maxSupply;
-  final Map<String, CoinMarketQuote> quotes;
+  final Map<String, CoinMarketQuote> quote;
 
   CoinMarketCapCurrency(
     this.id,
@@ -29,11 +31,13 @@ class CoinMarketCapCurrency {
     this.symbol,
     this.circulatingSupply,
     this.maxSupply,
-    this.quotes,
+    this.quote,
   );
 
   factory CoinMarketCapCurrency.fromJson(Map<String, dynamic> json) =>
       _$CoinMarketCapCurrencyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CoinMarketCapCurrencyToJson(this);
 }
 
 @JsonSerializable()
@@ -60,4 +64,6 @@ class CoinMarketQuote {
 
   factory CoinMarketQuote.fromJson(Map<String, dynamic> json) =>
       _$CoinMarketQuoteFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CoinMarketQuoteToJson(this);
 }

@@ -14,9 +14,7 @@ class CryptoCurrencyRateInMemoryDao implements CryptoCurrencyRateDataStorage {
   Future<List<CryptoCurrencyRate>> getByName(String name) async =>
       UnmodifiableListView(
         _currencies.where(
-          (cryptoCurrency) =>
-              cryptoCurrency._matchesName(name) ||
-              cryptoCurrency._matchesSymbol(name),
+          (cryptoCurrency) => cryptoCurrency.isSatisfiedBy(name),
         ),
       );
 
@@ -25,15 +23,5 @@ class CryptoCurrencyRateInMemoryDao implements CryptoCurrencyRateDataStorage {
     _currencies
       ..clear()
       ..addAll(currencies);
-  }
-}
-
-extension on CryptoCurrencyRate {
-  bool _matchesName(String value) {
-    return cryptoCurrency.name.toLowerCase().contains(value.toLowerCase());
-  }
-
-  bool _matchesSymbol(String value) {
-    return cryptoCurrency.symbol.toLowerCase().contains(value.toLowerCase());
   }
 }

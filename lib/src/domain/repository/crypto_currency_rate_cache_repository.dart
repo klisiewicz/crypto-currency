@@ -22,15 +22,24 @@ class CryptoCurrencyCacheRepository implements CryptoCurrencyRateRepository {
   @override
   Future<List<CryptoCurrencyRate>> getAll() async {
     try {
-      if (cache.isValid()) {
-        return cryptoCurrencyRateDataStorage.getAll();
-      } else {
-        final cryptoCurrencyRates = await cryptoCurrencyRateDataSource.getAll();
-        unawaited(cryptoCurrencyRateDataStorage.saveAll(cryptoCurrencyRates));
-        return cryptoCurrencyRates;
-      }
+      return await _tryToGetRates();
     } catch (e) {
+      final storedRates = await cryptoCurrencyRateDataStorage.getAll();
+      if (storedRates.isNotEmpty) {
+        return storedRates;
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+  Future<List<CryptoCurrencyRate>> _tryToGetRates() async {
+    if (cache.isValid()) {
       return cryptoCurrencyRateDataStorage.getAll();
+    } else {
+      final rates = await cryptoCurrencyRateDataSource.getAll();
+      unawaited(cryptoCurrencyRateDataStorage.saveAll(rates));
+      return rates;
     }
   }
 
@@ -38,7 +47,7 @@ class CryptoCurrencyCacheRepository implements CryptoCurrencyRateRepository {
   Future<List<CryptoCurrencyRate>> getBy(String query) async {
     final cryptoCurrencyRates = await cryptoCurrencyRateDataSource.getAll();
 
-    return (query.isNotNullOrEmpty)
+    return query.isNotNullOrEmpty
         ? cryptoCurrencyRates
             .where((rate) => rate.isSatisfiedBy(query))
             .toList()

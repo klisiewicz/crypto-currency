@@ -1,4 +1,7 @@
+import 'package:bloc/bloc.dart';
 import 'package:clock/clock.dart';
+import 'package:crypto_currency/src/data/api/coin_market_cap_api_key_provider.dart';
+import 'package:crypto_currency/src/data/api/coin_market_cap_asset_api_key_provider.dart';
 import 'package:crypto_currency/src/data/api/coin_market_cap_data_source.dart';
 import 'package:crypto_currency/src/data/cache/cache_policy.dart';
 import 'package:crypto_currency/src/data/cache/cache_time_policy.dart';
@@ -8,35 +11,53 @@ import 'package:crypto_currency/src/domain/repository/crypto_currency_rate_cache
 import 'package:crypto_currency/src/domain/repository/crypto_currency_rate_data_storage.dart';
 import 'package:crypto_currency/src/domain/repository/crypto_currency_rate_repository.dart';
 import 'package:crypto_currency/src/domain/repository/crypto_currency_reate_data_source.dart';
+import 'package:crypto_currency/src/log/console_log_bloc_delegate.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:kiwi/kiwi.dart';
 
-part 'injector.g.dart';
-
-abstract class Injector {
-  @Register.factory(Client)
-  @Register.singleton(Clock)
-  @Register.factory(
-    CryptoCurrencyRateDataSource,
-    from: CoinMarketCapCryptoCurrencyDataSource,
-  )
-  @Register.factory(
-    CryptoCurrencyRateDataStorage,
-    from: CryptoCurrencyRateInMemoryDao,
-  )
-  @Register.factory(
-    CachePolicy,
-    from: CacheTimePolicy,
-  )
-  @Register.singleton(
-    CryptoCurrencyRateRepository,
-    from: CryptoCurrencyCacheRepository,
-  )
-  @Register.factory(CryptoCurrencyRateBloc)
-  void configure();
-
+class Injector {
   static void inject() {
-    _$Injector().configure();
+    final Container container = Container();
+    container.registerSingleton<BlocDelegate, LogBlocDelegate>(
+      (c) => LogBlocDelegate(),
+    );
+    container.registerFactory((c) => Client());
+    container.registerSingleton((c) => const Clock());
+    container.registerFactory<CoinMarketCapApiKeyProvider,
+        CoinMarketCapAssetApiKeyProvider>(
+      (c) => CoinMarketCapAssetApiKeyProvider(rootBundle),
+    );
+    container.registerFactory<CryptoCurrencyRateDataSource,
+        CoinMarketCapCryptoCurrencyDataSource>(
+      (c) => CoinMarketCapCryptoCurrencyDataSource(
+        'pro-api.coinmarketcap.com',
+        c<Client>(),
+        c<CoinMarketCapApiKeyProvider>(),
+      ),
+    );
+    container.registerFactory<CryptoCurrencyRateDataStorage,
+        CryptoCurrencyRateInMemoryDao>(
+      (c) => CryptoCurrencyRateInMemoryDao(),
+    );
+    container.registerFactory<CachePolicy, CacheTimePolicy>(
+      (c) => CacheTimePolicy(
+        c<Clock>(),
+      ),
+    );
+    container.registerSingleton<CryptoCurrencyRateRepository,
+        CryptoCurrencyCacheRepository>(
+      (c) => CryptoCurrencyCacheRepository(
+        c<CryptoCurrencyRateDataSource>(),
+        c<CryptoCurrencyRateDataStorage>(),
+        c<CachePolicy>(),
+      ),
+    );
+    container.registerFactory(
+      (c) => CryptoCurrencyRateBloc(
+        c<CryptoCurrencyRateRepository>(),
+      ),
+    );
   }
 }
 

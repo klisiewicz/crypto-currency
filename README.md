@@ -1,6 +1,19 @@
+### Features
 # Crypto Currency rates
 
 This application allows to view crypto currency rates from [Coin Market Cap](https://coinmarketcap.com).
+
+## Getting started
+
+1. Get an API key at [Coin Market Cap](https://coinmarketcap.com/api/).
+
+2. In the `/assets/secrets/` directory create `api_key.json` file containing your Coin Market Cap API key:
+
+```json
+{
+  "api_key": "YOUR_COIN_MARKET_CAP_API_KEY"
+}
+```
 
 ## Screenshots
 

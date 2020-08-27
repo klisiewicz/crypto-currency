@@ -22,7 +22,6 @@ const etherumRate = CryptoCurrencyRate(
   marketCap: 63695073558.0,
   supply: Supply(
     circulating: 99151888.0,
-    max: null,
   ),
   trendHistory: TrendHistory(
     hour: TrendValue(value: 3.75, trend: Trend.falling),

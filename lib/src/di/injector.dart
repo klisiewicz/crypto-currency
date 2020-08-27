@@ -18,35 +18,31 @@ import 'package:kiwi/kiwi.dart';
 
 class Injector {
   static void inject() {
-    final Container container = Container();
-    container.registerSingleton<BlocDelegate, LogBlocDelegate>(
+    final KiwiContainer container = KiwiContainer();
+    container.registerSingleton<BlocDelegate>(
       (c) => LogBlocDelegate(),
     );
-    container.registerFactory((c) => Client());
-    container.registerSingleton((c) => const Clock());
-    container.registerFactory<CoinMarketCapApiKeyProvider,
-        CoinMarketCapAssetApiKeyProvider>(
+    container.registerFactory<Client>((c) => Client());
+    container.registerSingleton<Clock>((c) => const Clock());
+    container.registerFactory<CoinMarketCapApiKeyProvider>(
       (c) => CoinMarketCapAssetApiKeyProvider(rootBundle),
     );
-    container.registerFactory<CryptoCurrencyRateDataSource,
-        CoinMarketCapCryptoCurrencyDataSource>(
+    container.registerFactory<CryptoCurrencyRateDataSource>(
       (c) => CoinMarketCapCryptoCurrencyDataSource(
         'pro-api.coinmarketcap.com',
         c<Client>(),
         c<CoinMarketCapApiKeyProvider>(),
       ),
     );
-    container.registerFactory<CryptoCurrencyRateDataStorage,
-        CryptoCurrencyRateInMemoryDao>(
+    container.registerFactory<CryptoCurrencyRateDataStorage>(
       (c) => CryptoCurrencyRateInMemoryDao(),
     );
-    container.registerFactory<CachePolicy, CacheTimePolicy>(
+    container.registerFactory<CachePolicy>(
       (c) => CacheTimePolicy(
         c<Clock>(),
       ),
     );
-    container.registerSingleton<CryptoCurrencyRateRepository,
-        CryptoCurrencyCacheRepository>(
+    container.registerSingleton<CryptoCurrencyRateRepository>(
       (c) => CryptoCurrencyCacheRepository(
         c<CryptoCurrencyRateDataSource>(),
         c<CryptoCurrencyRateDataStorage>(),
@@ -61,4 +57,4 @@ class Injector {
   }
 }
 
-T inject<T>([String name]) => Container().resolve<T>(name);
+T inject<T>([String name]) => KiwiContainer().resolve<T>(name);

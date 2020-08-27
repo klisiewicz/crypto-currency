@@ -34,7 +34,10 @@ void main() {
   test("should be invalid when enough time has passed", () {
     // Given
     final now = DateTime.now();
-    clock.dates = [now, now.add(const Duration(minutes: 5, seconds: 0))];
+    clock.dates = [
+      now,
+      now.add(const Duration(minutes: 5)),
+    ];
 
     cachePolicy.isValid();
 

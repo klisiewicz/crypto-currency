@@ -18,12 +18,12 @@ import 'package:kiwi/kiwi.dart';
 
 class Injector {
   static void inject() {
-    final KiwiContainer container = KiwiContainer();
+    final container = KiwiContainer();
     container.registerSingleton<BlocDelegate>(
       (c) => LogBlocDelegate(),
     );
-    container.registerFactory<Client>((c) => Client());
-    container.registerSingleton<Clock>((c) => const Clock());
+    container.registerFactory((c) => Client());
+    container.registerSingleton((c) => const Clock());
     container.registerFactory<CoinMarketCapApiKeyProvider>(
       (c) => CoinMarketCapAssetApiKeyProvider(rootBundle),
     );

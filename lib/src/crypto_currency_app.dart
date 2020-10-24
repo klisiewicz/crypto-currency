@@ -1,4 +1,4 @@
-import 'package:crypto_currency/src/navigation/router.dart';
+import 'package:crypto_currency/src/navigation/router.dart' as nav;
 import 'package:flutter/material.dart';
 
 class CryptoCurrencyApp extends StatelessWidget {
@@ -11,8 +11,8 @@ class CryptoCurrencyApp extends StatelessWidget {
         brightness: Brightness.dark,
         accentColor: Colors.redAccent,
       ),
-      onGenerateRoute: Router().generateRoute,
-      initialRoute: Routes.home,
+      onGenerateRoute: nav.Router().generateRoute,
+      initialRoute: nav.Routes.home,
     );
   }
 }

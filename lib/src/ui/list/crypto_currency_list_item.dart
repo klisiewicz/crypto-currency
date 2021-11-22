@@ -6,14 +6,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CryptoCurrencyListItem extends StatelessWidget {
   final CryptoCurrencyRate cryptoCurrencyRate;
-  final GestureTapCallback onTap;
+  final VoidCallback? onTap;
 
   const CryptoCurrencyListItem({
-    Key key,
-    @required this.cryptoCurrencyRate,
+    required this.cryptoCurrencyRate,
     this.onTap,
-  })  : assert(cryptoCurrencyRate != null),
-        super(key: key);
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +44,10 @@ class CryptoCurrencyListItem extends StatelessWidget {
 class _CryptoCurrencyImage extends StatelessWidget {
   final CryptoCurrencyRate cryptoCurrencyRate;
 
-  const _CryptoCurrencyImage(this.cryptoCurrencyRate, {Key key})
-      : super(key: key);
+  const _CryptoCurrencyImage(
+    this.cryptoCurrencyRate, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +61,10 @@ class _CryptoCurrencyImage extends StatelessWidget {
 class _CryptoCurrencyName extends StatelessWidget {
   final CryptoCurrencyRate cryptoCurrencyRate;
 
-  const _CryptoCurrencyName(this.cryptoCurrencyRate, {Key key})
-      : super(key: key);
+  const _CryptoCurrencyName(
+    this.cryptoCurrencyRate, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +86,16 @@ class _CryptoCurrencyName extends StatelessWidget {
 }
 
 class _CryptoCurrencyRate extends StatelessWidget {
-  final MoneyFormat moneyFormat = MoneyFormat();
   final CryptoCurrencyRate cryptoCurrencyRate;
 
-  _CryptoCurrencyRate(this.cryptoCurrencyRate, {Key key}) : super(key: key);
+  const _CryptoCurrencyRate(
+    this.cryptoCurrencyRate, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    const moneyFormat = MoneyFormat();
     return Row(
       children: <Widget>[
         Text(moneyFormat.format(cryptoCurrencyRate.price)),
@@ -103,7 +109,7 @@ class _CryptoCurrencyRate extends StatelessWidget {
 extension _ContextExt on BuildContext {
   Color get dividerColor => Theme.of(this).dividerColor;
 
-  TextStyle get subhead => Theme.of(this).textTheme.caption;
+  TextStyle? get subhead => Theme.of(this).textTheme.caption;
 
-  TextStyle get caption => Theme.of(this).textTheme.caption;
+  TextStyle? get caption => Theme.of(this).textTheme.caption;
 }

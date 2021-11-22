@@ -2,15 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class Supply extends Equatable {
+class Supply with EquatableMixin {
   final double circulating;
-  final double max;
+  final double? max;
 
   const Supply({
-    this.circulating,
+    required this.circulating,
     this.max,
   });
 
   @override
-  List<Object> get props => [circulating, max];
+  List<Object?> get props => [circulating, max];
 }

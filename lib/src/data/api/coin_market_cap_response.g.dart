@@ -7,15 +7,12 @@ part of 'coin_market_cap_response.dart';
 // **************************************************************************
 
 CoinMarketCapResponse _$CoinMarketCapResponseFromJson(
-    Map<String, dynamic> json) {
-  return CoinMarketCapResponse(
-    (json['data'] as List)
-        ?.map((e) => e == null
-            ? null
-            : CoinMarketCapCurrency.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
+        Map<String, dynamic> json) =>
+    CoinMarketCapResponse(
+      (json['data'] as List<dynamic>)
+          .map((e) => CoinMarketCapCurrency.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$CoinMarketCapResponseToJson(
         CoinMarketCapResponse instance) =>
@@ -24,22 +21,18 @@ Map<String, dynamic> _$CoinMarketCapResponseToJson(
     };
 
 CoinMarketCapCurrency _$CoinMarketCapCurrencyFromJson(
-    Map<String, dynamic> json) {
-  return CoinMarketCapCurrency(
-    json['id'] as int,
-    json['name'] as String,
-    json['symbol'] as String,
-    (json['circulating_supply'] as num)?.toDouble(),
-    (json['max_supply'] as num)?.toDouble(),
-    (json['quote'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(
-          k,
-          e == null
-              ? null
-              : CoinMarketQuote.fromJson(e as Map<String, dynamic>)),
-    ),
-  );
-}
+        Map<String, dynamic> json) =>
+    CoinMarketCapCurrency(
+      json['id'] as int,
+      json['name'] as String,
+      json['symbol'] as String,
+      (json['circulating_supply'] as num).toDouble(),
+      (json['max_supply'] as num).toDouble(),
+      (json['quote'] as Map<String, dynamic>).map(
+        (k, e) =>
+            MapEntry(k, CoinMarketQuote.fromJson(e as Map<String, dynamic>)),
+      ),
+    );
 
 Map<String, dynamic> _$CoinMarketCapCurrencyToJson(
         CoinMarketCapCurrency instance) =>
@@ -52,16 +45,15 @@ Map<String, dynamic> _$CoinMarketCapCurrencyToJson(
       'quote': instance.quote,
     };
 
-CoinMarketQuote _$CoinMarketQuoteFromJson(Map<String, dynamic> json) {
-  return CoinMarketQuote(
-    (json['price'] as num)?.toDouble(),
-    (json['market_cap'] as num)?.toDouble(),
-    (json['volume'] as num)?.toDouble(),
-    (json['percent_change_1h'] as num)?.toDouble(),
-    (json['percent_change_24h'] as num)?.toDouble(),
-    (json['percent_change_7d'] as num)?.toDouble(),
-  );
-}
+CoinMarketQuote _$CoinMarketQuoteFromJson(Map<String, dynamic> json) =>
+    CoinMarketQuote(
+      (json['price'] as num).toDouble(),
+      (json['market_cap'] as num).toDouble(),
+      (json['volume'] as num).toDouble(),
+      (json['percent_change_1h'] as num).toDouble(),
+      (json['percent_change_24h'] as num).toDouble(),
+      (json['percent_change_7d'] as num).toDouble(),
+    );
 
 Map<String, dynamic> _$CoinMarketQuoteToJson(CoinMarketQuote instance) =>
     <String, dynamic>{

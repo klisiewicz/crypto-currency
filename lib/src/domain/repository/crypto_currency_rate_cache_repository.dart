@@ -1,10 +1,8 @@
 import 'package:crypto_currency/src/data/cache/cache_policy.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_rate.dart';
 import 'package:crypto_currency/src/domain/repository/crypto_currency_rate_data_storage.dart';
+import 'package:crypto_currency/src/domain/repository/crypto_currency_rate_repository.dart';
 import 'package:crypto_currency/src/domain/repository/crypto_currency_reate_data_source.dart';
-import 'package:pedantic/pedantic.dart';
-
-import 'crypto_currency_rate_repository.dart';
 
 class CryptoCurrencyCacheRepository implements CryptoCurrencyRateRepository {
   final CryptoCurrencyRateDataSource cryptoCurrencyRateDataSource;
@@ -15,9 +13,7 @@ class CryptoCurrencyCacheRepository implements CryptoCurrencyRateRepository {
     this.cryptoCurrencyRateDataSource,
     this.cryptoCurrencyRateDataStorage,
     this.cache,
-  )   : assert(cryptoCurrencyRateDataSource != null),
-        assert(cryptoCurrencyRateDataStorage != null),
-        assert(cache != null);
+  );
 
   @override
   Future<List<CryptoCurrencyRate>> getAll() async {
@@ -38,7 +34,7 @@ class CryptoCurrencyCacheRepository implements CryptoCurrencyRateRepository {
       return cryptoCurrencyRateDataStorage.getAll();
     } else {
       final rates = await cryptoCurrencyRateDataSource.getAll();
-      unawaited(cryptoCurrencyRateDataStorage.saveAll(rates));
+      cryptoCurrencyRateDataStorage.saveAll(rates);
       return rates;
     }
   }
@@ -55,6 +51,6 @@ class CryptoCurrencyCacheRepository implements CryptoCurrencyRateRepository {
   }
 }
 
-extension StringExt on String {
-  bool get isNotNullOrEmpty => this != null && isNotEmpty;
+extension StringExt on String? {
+  bool get isNotNullOrEmpty => this != null && this!.isNotEmpty;
 }

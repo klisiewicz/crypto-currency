@@ -9,7 +9,7 @@ void main() {
   _setPortraitMode();
   _injectDependencies();
   _setupBlocDelegate();
-  runApp(CryptoCurrencyApp());
+  runApp(const CryptoCurrencyApp());
 }
 
 void _ensureFlutterBindingsInitialized() =>

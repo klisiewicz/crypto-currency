@@ -23,8 +23,7 @@ class CoinMarketCapCryptoCurrencyDataSource
     this._authority,
     this._client,
     this._apiKeyProvider,
-  )   : assert(_client != null),
-        assert(_apiKeyProvider != null);
+  );
 
   @override
   Future<List<CryptoCurrencyRate>> getAll() async {
@@ -33,9 +32,8 @@ class CoinMarketCapCryptoCurrencyDataSource
       uri,
       headers: await _getHeaders(),
     );
-    final decodedBody = json.decode(response.body);
-    final coinMarketCapResponse =
-        CoinMarketCapResponse.fromJson(decodedBody as Map<String, dynamic>);
+    final decodedBody = json.decode(response.body) as Map<String, dynamic>;
+    final coinMarketCapResponse = CoinMarketCapResponse.fromJson(decodedBody);
     return coinMarketCapResponse._toCurrencyRates();
   }
 

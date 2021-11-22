@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class CryptoCurrencyRate extends Equatable {
+class CryptoCurrencyRate with EquatableMixin {
   final CryptoCurrency cryptoCurrency;
   final Supply supply;
   final Money price;
@@ -14,19 +14,21 @@ class CryptoCurrencyRate extends Equatable {
   final TrendHistory trendHistory;
 
   const CryptoCurrencyRate({
-    @required this.cryptoCurrency,
-    @required this.supply,
-    @required this.price,
-    @required this.marketCap,
-    @required this.trendHistory,
-  })  : assert(cryptoCurrency != null),
-        assert(price != null),
-        assert(supply != null),
-        assert(trendHistory != null);
+    required this.cryptoCurrency,
+    required this.supply,
+    required this.price,
+    required this.marketCap,
+    required this.trendHistory,
+  });
 
   @override
-  List<Object> get props =>
-      [cryptoCurrency, supply, price, marketCap, trendHistory];
+  List<Object> get props => [
+        cryptoCurrency,
+        supply,
+        price,
+        marketCap,
+        trendHistory,
+      ];
 
   bool isSatisfiedBy(String query) {
     return _nameContainsQuery(query) || _symbolContainsQuery(query);

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 class TrendIcon extends StatelessWidget {
   final Trend trend;
 
-  const TrendIcon(this.trend, {Key key}) : super(key: key);
+  const TrendIcon(
+    this.trend, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,4 +30,3 @@ class TrendIcon extends StatelessWidget {
     }
   }
 }
-

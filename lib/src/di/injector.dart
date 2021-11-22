@@ -57,4 +57,4 @@ class Injector {
   }
 }
 
-T inject<T>([String name]) => KiwiContainer().resolve<T>(name);
+T inject<T>([String? name]) => KiwiContainer().resolve<T>(name);

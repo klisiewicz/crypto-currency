@@ -12,15 +12,15 @@ class _ClockMock extends Clock {
 }
 
 void main() {
-  _ClockMock clock;
-  CachePolicy cachePolicy;
+  late _ClockMock clock;
+  late CachePolicy cachePolicy;
 
   setUp(() {
     clock = _ClockMock();
     cachePolicy = CacheTimePolicy(clock);
   });
 
-  test("should be invalid when first called", () {
+  test('should be invalid when first called', () {
     // Given:
     clock.dates = [DateTime.now()];
 
@@ -31,7 +31,7 @@ void main() {
     expect(isValid, false);
   });
 
-  test("should be invalid when enough time has passed", () {
+  test('should be invalid when enough time has passed', () {
     // Given
     final now = DateTime.now();
     clock.dates = [
@@ -48,7 +48,7 @@ void main() {
     expect(isValid, false);
   });
 
-  test("should be valid when not enough time has passed", () {
+  test('should be valid when not enough time has passed', () {
     final now = DateTime.now();
     clock.dates = [now, now.add(const Duration(minutes: 4, seconds: 59))];
 

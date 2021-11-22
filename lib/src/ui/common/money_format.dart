@@ -1,14 +1,16 @@
 import 'package:crypto_currency/src/domain/entity/money.dart';
 import 'package:intl/intl.dart';
+import 'package:meta/meta.dart';
 
+@immutable
 class MoneyFormat {
-  final String locale;
+  final String? locale;
 
-  MoneyFormat([this.locale]);
+  const MoneyFormat([
+    this.locale,
+  ]);
 
   String format(Money money) {
-    if (money == null) return '';
-
     final decimalPlaces = (money.amount >= 1) ? 2 : 4;
     return NumberFormat.simpleCurrency(
       locale: locale,

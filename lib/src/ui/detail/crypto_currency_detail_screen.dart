@@ -7,17 +7,16 @@ import 'package:intl/intl.dart';
 
 class CryptoCurrencyDetailScreen extends StatelessWidget {
   final CryptoCurrencyRate cryptoCurrencyRate;
-  final NumberFormat numberFormat = NumberFormat.decimalPattern();
-  final MoneyFormat moneyFormat = MoneyFormat();
 
-  CryptoCurrencyDetailScreen(
+  const CryptoCurrencyDetailScreen(
     this.cryptoCurrencyRate, {
-    Key key,
-  })  : assert(cryptoCurrencyRate != null),
-        super(key: key);
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final numberFormat = NumberFormat.decimalPattern();
+    const moneyFormat = MoneyFormat();
     return Scaffold(
       appBar: AppBar(
         title: Text(cryptoCurrencyRate.cryptoCurrency.name),
@@ -75,12 +74,10 @@ class _LabeledTextField extends StatelessWidget {
   final String label;
 
   const _LabeledTextField({
-    Key key,
-    @required this.text,
-    @required this.label,
-  })  : assert(label != null),
-        assert(text != null),
-        super(key: key);
+    required this.text,
+    required this.label,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +97,10 @@ class _TrendLabeledTextField extends StatelessWidget {
   final TrendValue trendValue;
 
   const _TrendLabeledTextField({
-    Key key,
-    @required this.label,
-    @required this.trendValue,
-  })  : assert(label != null),
-        assert(trendValue != null),
-        super(key: key);
+    required this.label,
+    required this.trendValue,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

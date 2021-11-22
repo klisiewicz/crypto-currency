@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class CoinMarketCapApiKey extends Equatable {
   final String value;
 
-  CoinMarketCapApiKey(this.value) : assert(value != null && value.isNotEmpty);
+  CoinMarketCapApiKey(this.value) : assert(value.isNotEmpty);
 
   @override
   List<Object> get props => [value];

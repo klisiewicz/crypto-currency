@@ -2,18 +2,16 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class CryptoCurrency extends Equatable {
+class CryptoCurrency with EquatableMixin {
   final int id;
   final String name;
   final String symbol;
 
   const CryptoCurrency({
-    @required this.id,
-    @required this.name,
-    @required this.symbol,
-  })  : assert(id != null),
-        assert(name != null),
-        assert(symbol != null);
+    required this.id,
+    required this.name,
+    required this.symbol,
+  });
 
   @override
   List<Object> get props => [id, name, symbol];

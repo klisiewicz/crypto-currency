@@ -5,16 +5,15 @@ import 'package:flutter_bloc_patterns/view.dart';
 
 class CryptoCurrencyList extends StatelessWidget {
   final List<CryptoCurrencyRate> cryptoCurrencies;
-  final ValueSetter<CryptoCurrencyRate> onValueSelected;
-  final VoidCallback onRefresh;
+  final ValueSetter<CryptoCurrencyRate>? onValueSelected;
+  final VoidCallback? onRefresh;
 
   const CryptoCurrencyList(
     this.cryptoCurrencies, {
-    Key key,
+    Key? key,
     this.onValueSelected,
     this.onRefresh,
-  })  : assert(cryptoCurrencies != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

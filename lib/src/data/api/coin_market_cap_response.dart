@@ -55,12 +55,13 @@ class CoinMarketQuote {
   final double percentageChangeLastWeek;
 
   CoinMarketQuote(
-      this.price,
-      this.marketCap,
-      this.volume,
-      this.percentageChangeLastHour,
-      this.percentageChangeLastDay,
-      this.percentageChangeLastWeek);
+    this.price,
+    this.marketCap,
+    this.volume,
+    this.percentageChangeLastHour,
+    this.percentageChangeLastDay,
+    this.percentageChangeLastWeek,
+  );
 
   factory CoinMarketQuote.fromJson(Map<String, dynamic> json) =>
       _$CoinMarketQuoteFromJson(json);

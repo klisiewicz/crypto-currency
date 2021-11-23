@@ -11,6 +11,7 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.0.2
   flutter_riverpod: ^1.0.0
   flutter_svg: ^0.23.0+1
   http: ^0.13.4
@@ -30,4 +31,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
-    - assets/secrets/
+    - .env

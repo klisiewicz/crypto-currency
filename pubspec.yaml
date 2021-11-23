@@ -8,14 +8,14 @@ environment:
 dependencies:
   clock: ^1.1.0
   cupertino_icons: ^1.0.4
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_bloc_patterns: ^0.6.0
+  flutter_riverpod: ^1.0.0
   flutter_svg: ^0.23.0+1
   http: ^0.13.4
   intl: ^0.17.0
   json_annotation: ^4.3.0
-  kiwi: ^2.0.1
   meta: ^1.7.0
 
 dev_dependencies:

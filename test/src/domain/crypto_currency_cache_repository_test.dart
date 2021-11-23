@@ -149,19 +149,6 @@ void main() {
   );
 
   test(
-    'should return all currencies when no query is given',
-    () async {
-      givenDataStorageReturningCryptoCurrencies();
-      givenDataSourceReturningCryptoCurrencies();
-      givenValidCache();
-
-      cryptoCurrencies = await cryptoCurrencyRepository.getBy(null);
-
-      thenCryptoCurrenciesAreReturned();
-    },
-  );
-
-  test(
     'should return currencies which name matches the query',
     () async {
       givenDataStorageReturningCryptoCurrencies();

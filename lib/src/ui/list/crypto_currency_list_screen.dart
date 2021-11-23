@@ -1,58 +1,40 @@
-import 'package:crypto_currency/src/di/injector.dart';
-import 'package:crypto_currency/src/domain/bloc/crypto_currency_rate_bloc.dart';
 import 'package:crypto_currency/src/domain/entity/crypto_currency_rate.dart';
 import 'package:crypto_currency/src/navigation/router.dart';
+import 'package:crypto_currency/src/provider/provider.dart';
 import 'package:crypto_currency/src/ui/list/crypto_currency_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_patterns/view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CryptoCurrencyListScreen extends StatefulWidget {
+class CryptoCurrencyListScreen extends ConsumerWidget {
   const CryptoCurrencyListScreen({Key? key}) : super(key: key);
 
   @override
-  _CryptoCurrencyListScreenState createState() =>
-      _CryptoCurrencyListScreenState();
-}
-
-class _CryptoCurrencyListScreenState extends State<CryptoCurrencyListScreen> {
-  late CryptoCurrencyRateBloc _cryptoCurrencyBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _cryptoCurrencyBloc = inject<CryptoCurrencyRateBloc>()
-      ..loadElements();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncCurrencyRates = ref.watch(cryptoCurrencyRates);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cryptocurrencies'),
       ),
-      body: ViewStateBuilder<List<CryptoCurrencyRate>, CryptoCurrencyRateBloc>(
-        bloc: _cryptoCurrencyBloc,
-        onLoading: (context) => const LinearProgressIndicator(),
-        onSuccess: (context, cryptoCurrencies) =>
-            CryptoCurrencyList(
-              cryptoCurrencies,
-              onValueSelected: _navigateToCryptoCurrencyDetails,
-              onRefresh: _cryptoCurrencyBloc.refreshElements,
-            ),
-        onRefreshing: (context, cryptoCurrencies) =>
-            CryptoCurrencyList(cryptoCurrencies),
+      body: asyncCurrencyRates.when(
+        loading: () => const LinearProgressIndicator(),
+        data: (rates) {
+          return CryptoCurrencyList(
+            rates,
+            onValueSelected: (rate) {
+              _navigateToCryptoCurrencyDetails(context, rate);
+            },
+          );
+        },
+        error: (error, stackTrace) {},
       ),
     );
   }
 
-  Future<void> _navigateToCryptoCurrencyDetails(CryptoCurrencyRate value) {
-    return Navigator.pushNamed(context, Routes.details, arguments: value);
-  }
-
-  @override
-  void dispose() {
-    _cryptoCurrencyBloc.close();
-    super.dispose();
+  Future<void> _navigateToCryptoCurrencyDetails(
+    BuildContext context,
+    CryptoCurrencyRate rate,
+  ) {
+    return Navigator.pushNamed(context, Routes.details, arguments: rate);
   }
 }

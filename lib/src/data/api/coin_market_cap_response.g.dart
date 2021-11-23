@@ -27,7 +27,7 @@ CoinMarketCapCurrency _$CoinMarketCapCurrencyFromJson(
       json['name'] as String,
       json['symbol'] as String,
       (json['circulating_supply'] as num).toDouble(),
-      (json['max_supply'] as num).toDouble(),
+      (json['max_supply'] as num?)?.toDouble(),
       (json['quote'] as Map<String, dynamic>).map(
         (k, e) =>
             MapEntry(k, CoinMarketQuote.fromJson(e as Map<String, dynamic>)),
@@ -49,7 +49,7 @@ CoinMarketQuote _$CoinMarketQuoteFromJson(Map<String, dynamic> json) =>
     CoinMarketQuote(
       (json['price'] as num).toDouble(),
       (json['market_cap'] as num).toDouble(),
-      (json['volume'] as num).toDouble(),
+      (json['volume'] as num?)?.toDouble(),
       (json['percent_change_1h'] as num).toDouble(),
       (json['percent_change_24h'] as num).toDouble(),
       (json['percent_change_7d'] as num).toDouble(),

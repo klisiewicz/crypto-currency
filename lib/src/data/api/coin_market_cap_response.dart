@@ -10,8 +10,6 @@ class CoinMarketCapResponse {
 
   factory CoinMarketCapResponse.fromJson(Map<String, dynamic> json) =>
       _$CoinMarketCapResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CoinMarketCapResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -22,7 +20,7 @@ class CoinMarketCapCurrency {
   @JsonKey(name: 'circulating_supply')
   final double circulatingSupply;
   @JsonKey(name: 'max_supply')
-  final double maxSupply;
+  final double? maxSupply;
   final Map<String, CoinMarketQuote> quote;
 
   CoinMarketCapCurrency(
@@ -46,7 +44,7 @@ class CoinMarketQuote {
   @JsonKey(name: 'market_cap')
   final double marketCap;
   @JsonKey(name: 'volume')
-  final double volume;
+  final double? volume;
   @JsonKey(name: 'percent_change_1h')
   final double percentageChangeLastHour;
   @JsonKey(name: 'percent_change_24h')
